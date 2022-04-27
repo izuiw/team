@@ -1,7 +1,7 @@
 package com.group.exam.question.vo;
 
 public class QuestionVo {
-	private int questionSeq;
+	private Long questionSeq;
 	private String questionContent;
 	private String questionStatus;
 	private Long memberSeq;
@@ -16,10 +16,11 @@ public class QuestionVo {
 		super();
 		this.questionContent = questionContent;
 	}
-	public int getQuestionSeq() {
+
+	public Long getQuestionSeq() {
 		return questionSeq;
 	}
-	public void setQuestionSeq(int questionSeq) {
+	public void setQuestionSeq(Long questionSeq) {
 		this.questionSeq = questionSeq;
 	}
 	public String getQuestionContent() {

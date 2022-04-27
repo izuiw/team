@@ -46,16 +46,16 @@
 		where QNA_SEQ = #{qnaSeq}
 	</update>
 
-	<update id="qnaDelete" parameterType="Integer">
+	<update id="qnaDelete" parameterType="Long">
 		UPDATE qna set QNA_TITLE =
 		'none' and QNA_CONTENT = 'none' where QNA_SEQ = #{qnaSeq}
 	</update>
 
-	<update id="qnaReadCount" parameterType="Integer">
+	<update id="qnaReadCount" parameterType="Long">
 		update qna set QNA_READCNT = QNA_READCNT + 1 where QNA_SEQ = #{qnaSeq}
 	</update>
 
-	<select id="qnaTotalList" resultType="Integer">
+	<select id="qnaTotalList" resultType="Long">
 		select count(*) FROM QNA
 	</select>
 

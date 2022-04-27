@@ -3,13 +3,14 @@ package com.group.exam.board.command;
 public class BoardreplyInsertCommand {
 
 	
-	private int boardSeq;
+	private Long boardSeq;
 	private String replyContent;
 	
-	public int getBoardSeq() {
+	
+	public Long getBoardSeq() {
 		return boardSeq;
 	}
-	public void setBoardSeq(int boardSeq) {
+	public void setBoardSeq(Long boardSeq) {
 		this.boardSeq = boardSeq;
 	}
 	public String getReplyContent() {

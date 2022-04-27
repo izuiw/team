@@ -2,7 +2,7 @@ package com.group.exam.admin.command;
 
 public class AdminBoardCommand {
 	private int rn;
-	private int boardSeq;
+	private Long boardSeq;
 	private String boardTitle;
 	private String memberNickname;
 	private int boardCount;
@@ -14,6 +14,12 @@ public class AdminBoardCommand {
 	
 
 	
+	public Long getBoardSeq() {
+		return boardSeq;
+	}
+	public void setBoardSeq(Long boardSeq) {
+		this.boardSeq = boardSeq;
+	}
 	public String getBoardRegDay() {
 		return boardRegDay;
 	}
@@ -26,12 +32,7 @@ public class AdminBoardCommand {
 	public void setRn(int rn) {
 		this.rn = rn;
 	}
-	public int getBoardSeq() {
-		return boardSeq;
-	}
-	public void setBoardSeq(int boardSeq) {
-		this.boardSeq = boardSeq;
-	}
+
 	public String getBoardTitle() {
 		return boardTitle;
 	}

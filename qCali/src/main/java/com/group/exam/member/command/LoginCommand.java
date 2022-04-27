@@ -4,13 +4,13 @@ import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 
 public class LoginCommand {
-	private int memberSeq;
-	@Email(message="이메일 형식이 아닙니다.")
+	private Long memberSeq;
+	@Email(message = "이메일 형식이 아닙니다.")
 	@NotEmpty(message = "아이디를 입력해주세요.")
 	private String memberId;
 	@NotEmpty(message = "비밀번호를 입력해주세요.")
 	private String memberPassword;
-	
+
 	private String memberBpw;
 
 	private String memberNickname;
@@ -20,12 +20,20 @@ public class LoginCommand {
 
 	private int memberLevel;
 
-	public int getMemberSeq() {
+	public Long getMemberSeq() {
 		return memberSeq;
 	}
 
-	public void setMemberSeq(int memberSeq) {
+	public void setMemberSeq(Long memberSeq) {
 		this.memberSeq = memberSeq;
+	}
+
+	public void setMemberBirthDay(String memberBirthDay) {
+		this.memberBirthDay = memberBirthDay;
+	}
+
+	public void setMemberRegDay(String memberRegDay) {
+		this.memberRegDay = memberRegDay;
 	}
 
 	public String getMemberId() {
@@ -91,8 +99,5 @@ public class LoginCommand {
 	public void setMemberLevel(int memberLevel) {
 		this.memberLevel = memberLevel;
 	}
-
-
-	
 
 }

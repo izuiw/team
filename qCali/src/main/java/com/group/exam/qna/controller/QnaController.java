@@ -104,7 +104,7 @@ public class QnaController {
 
 	//글 상세 화면
 	@RequestMapping("/detail/{qnaSeq}")
-	public String detail(@PathVariable("qnaSeq") int qnaSeq, Model model,HttpSession session) {
+	public String detail(@PathVariable("qnaSeq") Long qnaSeq, Model model,HttpSession session) {
 		//조회수 증가
 		qnaService.qnaRead(qnaSeq);
 		QnaVo vo = qnaService.detail(qnaSeq);
@@ -136,7 +136,7 @@ public class QnaController {
 	
 	//글 삭제 처리
 	@RequestMapping(value="/delete", method=RequestMethod.GET)
-	public String delete(@RequestParam int qnaSeq, HttpSession session,Model model) {
+	public String delete(@RequestParam Long qnaSeq, HttpSession session,Model model) {
 		QnaVo vo = qnaService.detail(qnaSeq);
 		
 		//파일 삭제
@@ -152,7 +152,7 @@ public class QnaController {
 	}
 	//글 수정
 	@RequestMapping(value="/modify", method=RequestMethod.GET)
-	public String modify(@RequestParam int qnaSeq, Model model) {
+	public String modify(@RequestParam Long qnaSeq, Model model) {
 		model.addAttribute("vo", qnaService.detail(qnaSeq));
 		return "qna/modify";
 	}
@@ -181,7 +181,7 @@ public class QnaController {
 
 	//첨부 파일
 	@ResponseBody @RequestMapping("/download")
-	public void download(int qnaSeq, HttpSession session, HttpServletResponse response) {
+	public void download(Long qnaSeq, HttpSession session, HttpServletResponse response) {
 		QnaVo vo = qnaService.detail(qnaSeq);
 		qnaService.download(vo.getQnaFileName(),vo.getQnaFilePath(), session, response);
 	}
@@ -189,7 +189,7 @@ public class QnaController {
 
 	//답글쓰기
 	@RequestMapping(value="/reply", method=RequestMethod.GET)
-	public String reply(@RequestParam int qnaSeq, Model model,HttpSession session) {
+	public String reply(@RequestParam Long qnaSeq, Model model,HttpSession session) {
 		QnaVo vo = qnaService.detail(qnaSeq);
 		model.addAttribute("vo", vo);
 		return "/qna/reply";

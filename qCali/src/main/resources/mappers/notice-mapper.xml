@@ -11,7 +11,7 @@
 		where rownum between #{rowStart} and #{rowEnd}
 	</select>
 	
-	<select id="noticeDetail" parameterType="Integer" resultType="noticeVo">
+	<select id="noticeDetail" parameterType="Long" resultType="noticeVo">
 		select NOTICE_SEQ, NOTICE_TITLE, NOTICE_CONTENT, to_char(notice_reg_day,'yyyy.mm.dd') from "NOTICE" where "NOTICE_SEQ" = #{noticeSeq}
 	</select>
 	<select id="noticeTotal" resultType="Integer">
@@ -29,7 +29,7 @@
 		set notice_title=#{noticeTitle}, notice_content=#{noticeContent} where NOTICE_SEQ = #{noticeSeq}
 	</update>
 	
-	<delete id="noticeDelete" parameterType="Integer">
+	<delete id="noticeDelete" parameterType="Long">
 		delete from "NOTICE" where notice_seq=#{noticeSeq}
 	</delete>
 	

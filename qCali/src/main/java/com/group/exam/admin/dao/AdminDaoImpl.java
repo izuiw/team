@@ -76,7 +76,7 @@ public class AdminDaoImpl implements AdminDao{
 	@Override
 	public List<AdminBoardCommand> boardList(Criteria cri) {
 		// TODO Auto-generated method stub
-		return sqlSessionTemplate.selectList("boardList", cri);
+		return sqlSessionTemplate.selectList("adminboardList", cri);
 	}
 
 

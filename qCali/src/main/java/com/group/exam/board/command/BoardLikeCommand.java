@@ -1,14 +1,15 @@
 package com.group.exam.board.command;
 
 public class BoardLikeCommand{
-	private int boardSeq;
+	private Long boardSeq;
 	private int heart;
 	
 	
-	public int getBoardSeq() {
+
+	public Long getBoardSeq() {
 		return boardSeq;
 	}
-	public void setBoardSeq(int boardSeq) {
+	public void setBoardSeq(Long boardSeq) {
 		this.boardSeq = boardSeq;
 	}
 	public int getHeart() {

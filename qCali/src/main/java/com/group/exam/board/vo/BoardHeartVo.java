@@ -1,38 +1,38 @@
 package com.group.exam.board.vo;
 
 public class BoardHeartVo {
-	
-	private int heartSeq;
-	private int boardSeq;
-	private int memberSeq;
-	
-	public int getHeartSeq() {
+
+	private Long heartSeq;
+	private Long boardSeq;
+	private Long memberSeq;
+
+	public Long getHeartSeq() {
 		return heartSeq;
 	}
-	public void setHeartSeq(int heartSeq) {
+
+	public void setHeartSeq(Long heartSeq) {
 		this.heartSeq = heartSeq;
 	}
-	public int getBoardSeq() {
+
+	public Long getBoardSeq() {
 		return boardSeq;
 	}
-	public void setBoardSeq(int boardSeq) {
+
+	public void setBoardSeq(Long boardSeq) {
 		this.boardSeq = boardSeq;
 	}
-	public int getMemberSeq() {
+
+	public Long getMemberSeq() {
 		return memberSeq;
 	}
-	public void setMemberSeq(int memberSeq) {
+
+	public void setMemberSeq(Long memberSeq) {
 		this.memberSeq = memberSeq;
 	}
+
 	@Override
 	public String toString() {
 		return "BoardHeartVo [heartSeq=" + heartSeq + ", boardSeq=" + boardSeq + ", memberSeq=" + memberSeq + "]";
 	}
-	
-	
-	
-	
-	
-	
 
 }

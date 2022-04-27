@@ -35,7 +35,7 @@ public interface MemberDAO {
 
 	public abstract int updateMemberNickname(HashMap<String, Object> map);
 	
-	public abstract int deleteMember(int memberSeq);
+	public abstract int deleteMember(Long memberSeq);
 	
 	//회원 질문 추가
 	

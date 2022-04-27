@@ -30,7 +30,7 @@ public class NoticeDaoImpl implements NoticeDao{
 	}
 	
 	@Override
-	public NoticeVo selectDetail(int noticeSeq) {
+	public NoticeVo selectDetail(Long noticeSeq) {
 		// TODO Auto-generated method stub
 		return sqlSessionTemplate.selectOne("noticeDetail", noticeSeq);
 	}
@@ -54,7 +54,7 @@ public class NoticeDaoImpl implements NoticeDao{
 	}
 
 	@Override
-	public void delete(int noticeSeq) {
+	public void delete(Long noticeSeq) {
 		sqlSessionTemplate.delete("noticeDelete",noticeSeq);
 	}
 

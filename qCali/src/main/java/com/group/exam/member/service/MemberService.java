@@ -20,15 +20,15 @@ public interface MemberService {
 	
 	//회원 정보 수정 관련
 	
-	public int updateMemberPwd(String memberPassword, int memberSeq);
+	public int updateMemberPwd(String memberPassword, Long memberSeq);
 	
-	public int updateMemberNickname (String memberNickname, int memberSeq);
+	public int updateMemberNickname (String memberNickname, Long memberSeq);
 	
-	public int deleteMember (int memberSeq);
+	public int deleteMember (Long memberSeq);
 	
 	//회원 질문 추가
 	
-	public int memberQuestionAdd(String questionContent, int memberSeq);
+	public int memberQuestionAdd(String questionContent, Long memberSeq);
 
 }
 

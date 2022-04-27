@@ -33,16 +33,16 @@
 	
 	]]>
 	</select>
-	<delete id="memberDelete" parameterType="Integer">
+	<delete id="memberDelete" parameterType="Long">
 		DELETE FROM MEMBER WHERE MEMBER_SEQ = #{memberSeq}
 	</delete>
-	<update id="questionApprove" parameterType="Integer">
+	<update id="questionApprove" parameterType="Long">
 		UPDATE QUESTION SET QUESTION_STATUS = 'T' WHERE QUESTION_SEQ = #{questionSeq}
 	</update>
-	<delete id="questionDelete" parameterType="Integer">
+	<delete id="questionDelete" parameterType="Long">
 		DELETE FROM QUESTION WHERE QUESTION_SEQ = #{questionSeq}
 	</delete>
-	<select id="countQuestionList" resultType="Integer">
+	<select id="countQuestionList" resultType="Long">
 		<![CDATA[
 			select count(*) FROM question where QUESTION_STATUS = 'T'
 		]]>
@@ -81,8 +81,8 @@
 		VALUES (Q_SEQ.nextval, #{questionContent}, -1)
 	</insert>
 	
-<!-- 	<select id="boardList" resultType="com.group.exam.admin.command.AdminBoardCommand" parameterType="com.group.exam.utils.Criteria"> -->
-<!-- 		<![CDATA[ -->
+	<select id="adminboardList" resultType="com.group.exam.admin.command.AdminBoardCommand" parameterType="com.group.exam.utils.Criteria">
+		<![CDATA[
 <!-- 			select * from -->
 <!-- 			(select ROWNUM as rn, B.BOARD_SEQ, B.BOARD_TITLE, M.MEMBER_NICKNAME, B.BOARD_COUNT, B.BOARD_LIKE, -->
 <!-- 			TO_CHAR(B.BOARD_REG_DAY,'yyyy.mm.dd') BOARD_REG_DAY -->
@@ -92,14 +92,14 @@
 <!-- 			where rn BETWEEN #{rowStart} and #{rowEnd} -->
 <!-- 			ORDER BY BOARD_SEQ DESC -->
 <!-- 		]]> -->
-<!-- 	</select> -->
+	</select>
 	<select id="countBoardList" resultType="Integer">
 		<![CDATA[
 			select count(*) FROM board 
 		]]>
 	</select>
 	
-	<select id="selectBybseq" parameterType ="Integer" resultType="com.group.exam.admin.command.AdminBoardCommand">
+	<select id="selectBybseq" parameterType ="Long" resultType="com.group.exam.admin.command.AdminBoardCommand">
 		<![CDATA[
 			select B.BOARD_TITLE , M.MEMBER_NICKNAME ,
 			B.BOARD_COUNT , B.BOARD_LIKE , B.BOARD_CONTENT , Q.QUESTION_CONTENT , 
@@ -111,7 +111,7 @@
 		]]>
 	</select>
 	
-	<delete id="boardDelete" parameterType="Integer">
+	<delete id="boardDelete" parameterType="Long">
 		delete from BOARD where BOARD_SEQ = #{boardSeq}
 	</delete>
 	

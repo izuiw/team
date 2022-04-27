@@ -98,7 +98,7 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public int updateMemberPwd(String memberPassword, int memberSeq) {
+	public int updateMemberPwd(String memberPassword, Long memberSeq) {
 		// TODO Auto-generated method stub
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		
@@ -108,7 +108,7 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public int updateMemberNickname(String memberNickname, int memberSeq) {
+	public int updateMemberNickname(String memberNickname, Long memberSeq) {
 		// TODO Auto-generated method stub
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("memberNickname", memberNickname);
@@ -118,13 +118,13 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public int deleteMember(int memberSeq) {
+	public int deleteMember(Long memberSeq) {
 		// TODO Auto-generated method stub
 		return memberDAO.deleteMember(memberSeq);
 	}
 
 	@Override
-	public int memberQuestionAdd(String questionContent, int memberSeq) {
+	public int memberQuestionAdd(String questionContent, Long memberSeq) {
 		// TODO Auto-generated method stub
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("questionContent", questionContent);

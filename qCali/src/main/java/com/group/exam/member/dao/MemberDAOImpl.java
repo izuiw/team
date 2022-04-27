@@ -83,7 +83,7 @@ public class MemberDAOImpl implements MemberDAO{
 	}
 
 	@Override
-	public int deleteMember(int memberSeq) {
+	public int deleteMember(Long memberSeq) {
 		// TODO Auto-generated method stub
 		return sqlSessionTemplate.delete("deleteMember", memberSeq);
 	}

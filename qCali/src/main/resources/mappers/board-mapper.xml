@@ -27,7 +27,7 @@
 	</insert>
 	
 	<select id="currentBoardSeq" resultType="Integer">
-		select b_seq.currentval from dual
+		select b_seq.currval from dual
 	</select>
 	
 
@@ -58,7 +58,7 @@ where rn between #{rowStart} and #{rowEnd} ]]>
 	</select>
 
 	<!-- -->
-	<select id="questionselect" parameterType="Integer"
+	<select id="questionselect" parameterType="Long"
 		resultType="com.group.exam.board.command.QuestionAdayCommand">
 		select question_content, question_seq from
 		(select rownum AS
@@ -113,7 +113,7 @@ from MEMBER M right join BOARD B on M.MEMBER_SEQ = B.MEMBER_SEQ where B.BOARD_SE
 	</select>
 
 	<!-- 내가 쓴 글 수 -->
-	<select id="boardMylistCount" parameterType="Integer"
+	<select id="boardMylistCount" parameterType="Long"
 		resultType="Integer">
 		select count(*) from
 		BOARD where MEMBER_SEQ = #{memberSeq}
@@ -121,7 +121,7 @@ from MEMBER M right join BOARD B on M.MEMBER_SEQ = B.MEMBER_SEQ where B.BOARD_SE
 	</select>
 
 	<!-- board 조회수 up -->
-	<update id="boardCountup" parameterType="Integer">
+	<update id="boardCountup" parameterType="Long">
 		update BOARD set
 		BOARD_COUNT = BOARD_COUNT+1 where BOARD_SEQ = #{boardSeq}
 	</update>

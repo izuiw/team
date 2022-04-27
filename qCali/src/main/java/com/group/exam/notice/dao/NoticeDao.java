@@ -8,10 +8,10 @@ import com.group.exam.utils.Criteria;
 
 public interface NoticeDao {
 	public List<NoticeVo> selectAll(Criteria cri);
-	public NoticeVo selectDetail(int noticeSeq);
+	public NoticeVo selectDetail(Long noticeSeq);
 	public int noticeTotal();
 	public void insert(NoticeVo noticeVo);
 	public void update(HashMap<String, Object> map);
-	public void delete(int noticeSeq);
+	public void delete(Long noticeSeq);
 
 }

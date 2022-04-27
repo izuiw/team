@@ -31,7 +31,7 @@ public class QnaDaoImpl implements QnaDao{
 	}
 
 	@Override
-	public QnaVo detail(int qnaSeq) {
+	public QnaVo detail(Long qnaSeq) {
 		// TODO Auto-generated method stub
 		return sqlSessionTemplate.selectOne("qnaDetail", qnaSeq);
 	}
@@ -43,13 +43,13 @@ public class QnaDaoImpl implements QnaDao{
 	}
 
 	@Override
-	public void qnaDelete(int qnaSeq) {
+	public void qnaDelete(Long qnaSeq) {
 		// TODO Auto-generated method stub
 		sqlSessionTemplate.update("qnaDelete", qnaSeq);
 	}
 
 	@Override
-	public void qnaRead(int qnaSeq) {
+	public void qnaRead(Long qnaSeq) {
 		// TODO Auto-generated method stub
 		sqlSessionTemplate.update("qnaReadCount", qnaSeq);
 	}

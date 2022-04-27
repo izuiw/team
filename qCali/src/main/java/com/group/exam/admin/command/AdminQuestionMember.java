@@ -2,24 +2,21 @@ package com.group.exam.admin.command;
 
 public class AdminQuestionMember {
 	private Long no;
-	private int questionSeq;
+	private Long questionSeq;
 	private String questionContent;
 	private String memberNickname;
-	private int memberSeq;
+	private Long memberSeq;
 	private String questionStatus;
-	
-
-
 	public Long getNo() {
 		return no;
 	}
 	public void setNo(Long no) {
 		this.no = no;
 	}
-	public int getQuestionSeq() {
+	public Long getQuestionSeq() {
 		return questionSeq;
 	}
-	public void setQuestionSeq(int questionSeq) {
+	public void setQuestionSeq(Long questionSeq) {
 		this.questionSeq = questionSeq;
 	}
 	public String getQuestionContent() {
@@ -34,10 +31,10 @@ public class AdminQuestionMember {
 	public void setMemberNickname(String memberNickname) {
 		this.memberNickname = memberNickname;
 	}
-	public int getMemberSeq() {
+	public Long getMemberSeq() {
 		return memberSeq;
 	}
-	public void setMemberSeq(int memberSeq) {
+	public void setMemberSeq(Long memberSeq) {
 		this.memberSeq = memberSeq;
 	}
 	public String getQuestionStatus() {
@@ -48,7 +45,5 @@ public class AdminQuestionMember {
 	}
 	
 
-
-	
 	
 }

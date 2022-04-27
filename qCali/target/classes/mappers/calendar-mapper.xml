@@ -33,7 +33,7 @@
 		]]>
 	</select>
 
-	<insert id="insertCalendar" parameterType="Integer">
+	<insert id="insertCalendar" parameterType="Long">
 		insert into
 		calendar(calendar_seq, board_seq, calendar_day) values(c_seq.nextval,
 		#{currentSeq}, sysdate)

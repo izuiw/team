@@ -82,7 +82,7 @@
 		#{memberSeq}
 	</update>
 
-	<delete id="deleteMember" parameterType="Integer">
+	<delete id="deleteMember" parameterType="Long">
 		DELETE MEMBER WHERE
 		MEMBER_SEQ = #{memberSeq}
 	</delete>
@@ -95,7 +95,7 @@
 	</insert>
 	
 		<!-- 멤버 AUTH 상태 확인 -->
-	<select id="memberAuth" parameterType="Integer"
+	<select id="memberAuth" parameterType="Long"
 		resultType="String">
 		select MEMBER_AUTH from MEMBER where MEMBER_SEQ = #{memberSeq}
 

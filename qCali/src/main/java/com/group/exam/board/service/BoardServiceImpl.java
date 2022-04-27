@@ -42,7 +42,7 @@ public class BoardServiceImpl implements BoardService{
 
 
 	@Override
-	public List<BoardlistCommand> boardMyList(Criteria cri, int memberSeq) {
+	public List<BoardlistCommand> boardMyList(Criteria cri, Long memberSeq) {
 		// TODO Auto-generated method stub
 		HashMap<String, Object> map = new HashMap<String, Object>();
 	
@@ -54,7 +54,7 @@ public class BoardServiceImpl implements BoardService{
 	
 
 	@Override
-	public BoardlistCommand boardListDetail(int boardSeq) {
+	public BoardlistCommand boardListDetail(Long boardSeq) {
 		// TODO Auto-generated method stub
 		return boardDao.boardListDetail(boardSeq);
 	}
@@ -62,9 +62,9 @@ public class BoardServiceImpl implements BoardService{
 
 
 	@Override
-	public void deleteBoardOne(int boardSeq, int memberSeq) {
+	public void deleteBoardOne(Long boardSeq, Long memberSeq) {
 		// TODO Auto-generated method stub
-		HashMap<String, Integer> map = new HashMap<String, Integer>();
+		HashMap<String, Long> map = new HashMap<String, Long>();
 		
 		map.put("boardSeq", boardSeq);
 		map.put("memberSeq", memberSeq);
@@ -77,7 +77,7 @@ public class BoardServiceImpl implements BoardService{
 
 	//게시물 조횟수 up
 	@Override
-	public void boardCountup(int boardSeq) {
+	public void boardCountup(Long boardSeq) {
 		// TODO Auto-generated method stub
 
 		boardDao.boardCountup(boardSeq);
@@ -93,7 +93,7 @@ public class BoardServiceImpl implements BoardService{
 
 
 	@Override
-	public void updateBoard(String boardTitle, String boardContent, int boardSeq) {
+	public void updateBoard(String boardTitle, String boardContent, Long boardSeq) {
 		// TODO Auto-generated method stub
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("boardTitle", boardTitle);
@@ -106,7 +106,7 @@ public class BoardServiceImpl implements BoardService{
 
 
 	@Override
-	public int mylistCount(int memberSeq) {
+	public int mylistCount(Long memberSeq) {
 		// TODO Auto-generated method stub
 		return boardDao.boardMylistCount(memberSeq);
 	}
@@ -138,14 +138,14 @@ public class BoardServiceImpl implements BoardService{
 
 
 	@Override
-	public String memberAuth(int memberSeq) {
+	public String memberAuth(Long memberSeq) {
 		// TODO Auto-generated method stub
 		return boardDao.memberAuth(memberSeq);
 	}
 
 
 	@Override
-	public int memberLevelup(int memberSeq, int mytotal, int memberLevel) {
+	public int memberLevelup(Long memberSeq, int mytotal, int memberLevel) {
 		// TODO Auto-generated method stub
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		
@@ -188,7 +188,7 @@ public class BoardServiceImpl implements BoardService{
 	
 	//댓글 기능 관련
 	@Override
-	public List<ReplyVo> replySelect(int boardSeq) {
+	public List<ReplyVo> replySelect(Long boardSeq) {
 		// TODO Auto-generated method stub
 		return boardDao.replySelect(boardSeq);
 	}
@@ -222,7 +222,7 @@ public class BoardServiceImpl implements BoardService{
 
 
 	@Override
-	public void replyDelete(int replySeq) {
+	public void replyDelete(Long replySeq) {
 		// TODO Auto-generated method stub
 		boardDao.replyDelete(replySeq);
 		

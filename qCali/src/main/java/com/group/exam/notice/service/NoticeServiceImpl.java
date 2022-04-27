@@ -28,7 +28,7 @@ public class NoticeServiceImpl implements NoticeService{
 	}
 
 	@Override
-	public NoticeVo detail(int noticeSeq) {
+	public NoticeVo detail(Long noticeSeq) {
 		// TODO Auto-generated method stub
 		return noticeDao.selectDetail(noticeSeq);
 	}
@@ -41,12 +41,12 @@ public class NoticeServiceImpl implements NoticeService{
 	}
 
 	@Override
-	public void delete(int noticeSeq) {
+	public void delete(Long noticeSeq) {
 		noticeDao.delete(noticeSeq);
 	}
 
 	@Override
-	public void update(String noticeTitle, String noticeContent, int noticeSeq) {
+	public void update(String noticeTitle, String noticeContent, Long noticeSeq) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		
 		map.put("noticeTitle", noticeTitle);

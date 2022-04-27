@@ -46,7 +46,7 @@ public class NoticeController {
 	}
 
 	@RequestMapping("/notice/read/{noticeSeq}")
-	public String noticeDetail(Model model, @PathVariable("noticeSeq") int noticeSeq) {
+	public String noticeDetail(Model model, @PathVariable("noticeSeq") Long noticeSeq) {
 		NoticeVo notice = noticeService.detail(noticeSeq);
 
 		if (notice == null) {
@@ -94,14 +94,14 @@ public class NoticeController {
 	}
 
 	@RequestMapping(value = "/notice/delete", method = RequestMethod.GET)
-	public String noticeDelete(@RequestParam("noticeSeq") int noticeSeq) {
+	public String noticeDelete(@RequestParam("noticeSeq") Long noticeSeq) {
 		noticeService.delete(noticeSeq);
 
 		return "redirect:/notice/list";
 	}
 
 	@RequestMapping(value = "/notice/update", method = RequestMethod.GET)
-	public String noticeUpdate(@RequestParam("noticeSeq") int noticeSeq, Model model) {
+	public String noticeUpdate(@RequestParam("noticeSeq") Long noticeSeq, Model model) {
 		NoticeVo notice = noticeService.detail(noticeSeq);
 		model.addAttribute("notice", notice);
 //		model.addAttribute("NoticeUpdateCommand", new NoticeUpdateCommand());
