@@ -7,6 +7,9 @@
 <head>
 <meta charset="UTF-8">
 <title>Q&A 수정</title>
+<script type="text/javascript"
+	src="<c:url value='/resources/static/js/ckeditor/ckeditor.js'/>"></script>
+
 	<script>
 		function nullCheck(){
 			if(updateForm.qnaTitle.value==""){
@@ -39,7 +42,7 @@
 			<tr>
 				<th>내용</th>
 				<td><textarea rows="" cols="" class="need" name="qnaContent" >${vo.qnaContent }</textarea>
-				<script>CKEDITOR.replace('noticeContent', {filebrowserUploadUrl:'${pageContext.request.contextPath}/qna/fileupload'});</script>
+				<script>CKEDITOR.replace('qnaContent', {filebrowserUploadUrl:'${pageContext.request.contextPath}/qna/fileupload'});</script>
 				</td>
 			</tr>
 			<tr>

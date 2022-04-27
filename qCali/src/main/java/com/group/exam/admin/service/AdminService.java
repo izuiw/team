@@ -18,22 +18,18 @@ public interface AdminService {
 	public List<AdminBoardCommand> boardList(Criteria cri);
 		
 	public AdminAuthInfoCommand authenticate(String adminId, String adminPassword);
-	public void memberDelete(int memberSeq);
+	public void memberDelete(Long memberSeq);
 
-	public void questionApprove(int questionSeq);
+	public void questionApprove(Long questionSeq);
 	public void addQuestion(QuestionRegistCommand qusestionRegistCommand);
-	public void questionDelete(int questionSeq);
+	public void questionDelete(Long questionSeq);
 
-	public AdminBoardCommand selectBybseq(int boardSeq);
-	public void boardDelete(int boardSeq);
+	public AdminBoardCommand selectBybseq(Long boardSeq);
+	public void boardDelete(Long boardSeq);
 
 	public int boardListTotal();
 	public int countQuestionList();
 	public int memberListTotal();
 	public int questionListTotal();
 	
-	//하루마다 질문 호출
-	public QuestionVo questionselect(int num);
-	public int getSequence();
-	public int currentSequence();
 }

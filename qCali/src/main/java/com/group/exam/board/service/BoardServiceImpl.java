@@ -237,7 +237,7 @@ public class BoardServiceImpl implements BoardService{
 
 
 	@Override
-	public int currentBoardSeq() {
+	public Long currentBoardSeq() {
 		// TODO Auto-generated method stub
 		return boardDao.currentBoardSeq();
 	}

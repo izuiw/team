@@ -62,7 +62,7 @@ public interface BoardService {
 	public void replyDelete(Long replySeq); // 댓글 삭제
 	
 	// 현재 시퀀스 구하기(insert 뒤에만 적용할 예정이라 current 사용 가능)
-	public int currentBoardSeq();
+	public Long currentBoardSeq();
 	
 
 }

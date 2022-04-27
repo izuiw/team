@@ -55,7 +55,7 @@
 		update qna set QNA_READCNT = QNA_READCNT + 1 where QNA_SEQ = #{qnaSeq}
 	</update>
 
-	<select id="qnaTotalList" resultType="Long">
+	<select id="qnaTotalList" resultType="Integer">
 		select count(*) FROM QNA
 	</select>
 

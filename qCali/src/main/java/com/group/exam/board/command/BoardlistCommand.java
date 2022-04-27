@@ -1,7 +1,7 @@
 package com.group.exam.board.command;
 
 public class BoardlistCommand {
-	
+	private Long rn;
 	private Long boardSeq;
 	private String boardTitle;
 	private String boardRegday;
@@ -13,6 +13,12 @@ public class BoardlistCommand {
 	
 	
 
+	public Long getRn() {
+		return rn;
+	}
+	public void setRn(Long rn) {
+		this.rn = rn;
+	}
 	public Long getBoardSeq() {
 		return boardSeq;
 	}

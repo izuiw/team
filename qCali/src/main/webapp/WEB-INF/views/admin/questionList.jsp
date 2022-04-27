@@ -28,25 +28,25 @@
 	<h2>질문 승인 대기 </h2>
 	<table border="1">
 		<tr>
-			<th>SEQ</th>
+			<th>NO</th>
 			<th>질문 내용</th>
 			<th>작성자</th>
 			<th colspan="2">질문 승인/거절</th>
 		</tr>
 		<c:forEach var="q" items="${questions }">
 			<tr>
-				<td>${q.questionSeq}</td>
+				<td>${q.no}</td>
 				<td>${q.questionContent }</td>
 					<!-- memberNickname이 null일 수 있다. -->
 				<c:choose>
 					<c:when test="${q.memberSeq == -1 }">
 						<td>관리자</td>
 					</c:when>
-					<c:when test="${empty q.memberSeq}">
-						<td>탈퇴한 회원</td>
+					<c:when test="${!empty q.memberNickname}">
+						<td>${q.memberNickname }</td>
 					</c:when>
 					<c:otherwise>
-						<td>${q.memberNickname }</td>
+						<td>탈퇴한 회원</td>
 					</c:otherwise>
 				</c:choose>
 				

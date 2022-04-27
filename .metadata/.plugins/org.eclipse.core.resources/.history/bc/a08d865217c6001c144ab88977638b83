@@ -1,0 +1,27 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>board</title>
+</head>
+<body>
+	<h2>공지사항</h2>
+		<table border="1">
+			<tr>
+				<th>제목</th>
+				<th>작성일</th>
+			</tr>
+		<c:forEach var="n" items="${notice }">
+			<tr>
+				<td><a href="<c:url value='/notice/read/${n.noticeSeq}' />">${n.noticeTitle} </a></td>
+				<td>${n.noticeRegDay }</td>
+			</tr>
+	</c:forEach>
+			</table>
+	
+</body>
+</html>

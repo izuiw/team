@@ -39,7 +39,7 @@ public class AdminQuestionController {
 		model.addAttribute("questions", questions);
 		
 		PagingVo pageMaker = new PagingVo();
-		
+		System.out.println(questions);
 		pageMaker.setCri(cri);
 		int questionTotal = adminService.questionListTotal();
 		pageMaker.setTotalCount(questionTotal);
@@ -52,13 +52,13 @@ public class AdminQuestionController {
 	
 	//status를 'T', 승인 ok로 바꾸기
 	@RequestMapping("/question/approve")
-	public String questionApprove(@RequestParam("questionSeq") int questionSeq) {
+	public String questionApprove(@RequestParam("questionSeq") Long questionSeq) {
 		adminService.questionApprove(questionSeq);
 		return "redirect:/admin/question/list";
 	}
 	//대기 중인 질문 삭제
 	@RequestMapping("/question/delete")
-	public String questionDelete(@RequestParam("questionSeq") int questionSeq) {
+	public String questionDelete(@RequestParam("questionSeq") Long questionSeq) {
 		adminService.questionDelete(questionSeq);
 		return "redirect:/admin/question/list";
 	}

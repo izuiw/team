@@ -44,7 +44,7 @@ public class AdminMemberController {
 	
 	//유저 관리
 	@RequestMapping(value="/delete", method=RequestMethod.GET)
-	public String memberDelete(@RequestParam("memberSeq") int memberSeq) {
+	public String memberDelete(@RequestParam("memberSeq") Long memberSeq) {
 		adminService.memberDelete(memberSeq);
 		return "redirect:/admin/member/list";
 	}

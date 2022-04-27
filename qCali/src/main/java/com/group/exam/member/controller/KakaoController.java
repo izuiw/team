@@ -78,8 +78,8 @@ public class KakaoController {
 		command.setKakaoId("kemail");
 		
 		
-		
-		mav.addObject("kemail");
+		session.setAttribute("kemail", kemail);
+		mav.addObject("kemail", kemail);
 		//main으로 넘어가기
 		mav.setViewName("/member/successLogin");
 		return mav;

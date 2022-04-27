@@ -43,6 +43,12 @@ public class AdminQuestionMember {
 	public void setQuestionStatus(String questionStatus) {
 		this.questionStatus = questionStatus;
 	}
+	@Override
+	public String toString() {
+		return "AdminQuestionMember [no=" + no + ", questionSeq=" + questionSeq + ", questionContent=" + questionContent
+				+ ", memberNickname=" + memberNickname + ", memberSeq=" + memberSeq + ", questionStatus="
+				+ questionStatus + "]";
+	}
 	
 
 	

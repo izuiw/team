@@ -197,7 +197,7 @@ public class BoardDaoImpl implements BoardDao {
 	}
 
 	@Override
-	public int currentBoardSeq() {
+	public Long currentBoardSeq() {
 		// TODO Auto-generated method stub
 		return sqlSessionTemplate.selectOne("currentBoardSeq");
 	}

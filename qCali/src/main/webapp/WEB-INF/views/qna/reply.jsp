@@ -32,6 +32,8 @@
 			<tr>
 				<th>내용</th>
 				<td><textarea rows="" cols="" name="qnaContent" class="need"></textarea></td>
+				<script>CKEDITOR.replace('qnaContent', {filebrowserUploadUrl:'${pageContext.request.contextPath}/qna/fileupload'});</script>
+				
 			</tr>
 			<tr>
 				<th>파일 첨부</th>

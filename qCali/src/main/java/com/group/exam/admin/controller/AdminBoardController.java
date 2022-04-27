@@ -41,7 +41,7 @@ public class AdminBoardController {
 
 	
 	@RequestMapping(value="/detail/{boardSeq}")
-	public String detail(@PathVariable("boardSeq") int boardSeq, Model model) {
+	public String detail(@PathVariable("boardSeq") Long boardSeq, Model model) {
 		AdminBoardCommand boards = adminService.selectBybseq(boardSeq);
 		if(boards ==null) {
 			//예외처리
@@ -50,7 +50,7 @@ public class AdminBoardController {
 		return "/admin/boarddetail";
 	}
 	@RequestMapping(value="/delete" ,method=RequestMethod.GET)
-	public String boardDelete(@RequestParam("boardSeq") int boardSeq) {
+	public String boardDelete(@RequestParam("boardSeq")Long boardSeq) {
 		adminService.boardDelete(boardSeq);
 		return "redirect:/admin/board/list";
 	}

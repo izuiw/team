@@ -8,7 +8,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script type="text/javascript"
-	src="<c:url value='/resources/static/js/ckeditor/ckeditor.js'/>"></script>
+	src="<c:url value='/resources/'/>static/js/ckeditor/ckeditor.js"></script>
 
 	<script>
 		function nullCheck(){
@@ -51,7 +51,7 @@
 		<tr>
 			<th>내용</th>
 			<td><textarea rows="" cols="" name="qnaContent"></textarea>
-			<script>CKEDITOR.replace('noticeContent', {filebrowserUploadUrl:'${pageContext.request.contextPath}/qna/fileupload'});</script>
+			<script>CKEDITOR.replace('qnaContent', {filebrowserUploadUrl:'${pageContext.request.contextPath}/qna/fileupload'});</script>
 			</td>
 		</tr>
 		<tr>

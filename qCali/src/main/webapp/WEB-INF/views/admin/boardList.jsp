@@ -38,7 +38,6 @@
 		</tr>	
 		</c:forEach>
 	</table>
-	<div>
 	  <ul>
 	    <c:if test="${pageMaker.prev}">
 	    	<li><a href="list${pageMaker.makeQuery(pageMaker.startPage - 1)}">이전</a></li>
@@ -52,7 +51,6 @@
 	    	<li><a href="list${pageMaker.makeQuery(pageMaker.endPage + 1)}">다음</a></li>
 	    </c:if> 
 	  </ul>
-	</div>
 
 </body>
 </html>

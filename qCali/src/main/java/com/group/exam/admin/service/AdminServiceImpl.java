@@ -17,59 +17,61 @@ import com.group.exam.question.vo.QuestionVo;
 import com.group.exam.utils.Criteria;
 
 @Service
-public class AdminServiceImpl implements AdminService{
+public class AdminServiceImpl implements AdminService {
 	private AdminDao adminDao;
-	
+
 	@Autowired
 	public AdminServiceImpl(AdminDao adminDao) {
 		this.adminDao = adminDao;
 	}
 
-	//관리자 로그인 정보
+	// 관리자 로그인 정보
 	@Override
 	public AdminAuthInfoCommand authenticate(String aId, String aPassword) {
 		AdminVo adminVo = (AdminVo) adminDao.selectByaId(aId);
-		if(adminVo == null) {
+		if (adminVo == null) {
 			throw new IdpasswordNotMatchingException();
 		}
-		if(!adminVo.matchPassword(aPassword)) {
+		if (!adminVo.matchPassword(aPassword)) {
 			throw new IdpasswordNotMatchingException();
 		}
 		// TODO Auto-generated method stub
 		return new AdminAuthInfoCommand(adminVo.getAdminId(), adminVo.getAdminNickname(), adminVo.getAdminSeq());
 	}
 
-	
-	
-	//질문 승인
+	// 질문 승인
 
-	//멤버 삭제
+	// 멤버 삭제
 	@Override
-	public void memberDelete(int memberSeq) {
+	public void memberDelete(Long memberSeq) {
 		adminDao.memberDelete(memberSeq);
 	}
 
-	//상태가 'F'인 질문들 출력
+	// 상태가 'F'인 질문들 출력
 	@Override
 	public List<AdminQuestionMember> questionList(Criteria cri) {
 		return adminDao.questionList(cri);
 	}
-	//질문 승인
+
+	// 질문 승인
 	@Override
-	public void questionApprove(int questionSeq) {
-		adminDao.questionApprove(questionSeq);;		
-		
+	public void questionApprove(Long questionSeq) {
+		adminDao.questionApprove(questionSeq);
+		;
+
 	}
-	//질문 거부(삭제)
+
+	// 질문 거부(삭제)
 	@Override
-	public void questionDelete(int questionSeq) {
+	public void questionDelete(Long questionSeq) {
 		adminDao.questionDelete(questionSeq);
 	}
-	//질문 추가
+
+	// 질문 추가
 	@Override
 	public void addQuestion(QuestionRegistCommand questionRegistCommand) {
 		QuestionVo questionVo = new QuestionVo(questionRegistCommand.getQuestionContent());
-		
+
 		System.out.println(questionVo);
 		adminDao.questionAdd(questionVo);
 	}
@@ -78,7 +80,8 @@ public class AdminServiceImpl implements AdminService{
 	public List<AdminQuestionMember> questionAllList(Criteria cri) {
 		return adminDao.questionAllList(cri);
 	}
-	//멤버 리스트
+
+	// 멤버 리스트
 	@Override
 	public List<MemberVo> selectMember(Criteria cri) {
 		// TODO Auto-generated method stub
@@ -93,19 +96,19 @@ public class AdminServiceImpl implements AdminService{
 	}
 
 	@Override
-	public AdminBoardCommand selectBybseq(int boardSeq) {
+	public AdminBoardCommand selectBybseq(Long boardSeq) {
 		// TODO Auto-generated method stub
 		return adminDao.selectBybseq(boardSeq);
 	}
 
 	@Override
-	public void boardDelete(int boardSeq) {
+	public void boardDelete(Long boardSeq) {
 		adminDao.boardDelete(boardSeq);
 	}
 
 	@Override
 	public int boardListTotal() {
-		
+
 		return adminDao.countBoardList();
 	}
 
@@ -125,26 +128,6 @@ public class AdminServiceImpl implements AdminService{
 	public int questionListTotal() {
 		// TODO Auto-generated method stub
 		return adminDao.questionListTotal();
-	}
-	
-	//질문 하루마다 호출
-
-	@Override
-	public QuestionVo questionselect(int num) {
-		// TODO Auto-generated method stub
-		return adminDao.questionselect(num);
-	}
-
-	@Override
-	public int getSequence() {
-		// TODO Auto-generated method stub
-		return adminDao.getSequence();
-	}
-
-	@Override
-	public int currentSequence() {
-		// TODO Auto-generated method stub
-		return adminDao.currentSequence();
 	}
 
 }

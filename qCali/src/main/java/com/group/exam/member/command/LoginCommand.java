@@ -19,6 +19,24 @@ public class LoginCommand {
 	private String memberAuth;
 
 	private int memberLevel;
+	private String naver;
+	private String kakao;
+
+	public String getNaver() {
+		return naver;
+	}
+
+	public void setNaver(String naver) {
+		this.naver = naver;
+	}
+
+	public String getKakao() {
+		return kakao;
+	}
+
+	public void setKakao(String kakao) {
+		this.kakao = kakao;
+	}
 
 	public Long getMemberSeq() {
 		return memberSeq;

@@ -13,5 +13,5 @@ public interface CalendarService {
 	public List<CalendarBoardVo> boardByDate(Criteria cri, String date);
 	public int boardByDateTotal(String date);
 	//board추가 시 calendar에 insert
-	public void insertCalendar(int currentSeq);
+	public void insertCalendar(Long currentSeq);
 }

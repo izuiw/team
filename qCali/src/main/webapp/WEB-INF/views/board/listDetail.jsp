@@ -76,10 +76,9 @@
 				
 			
 				
-				<td>
 				
 					<td>
-					<c:if test="${empty boarList.memberNickname }">
+					<c:if test="${empty boardList.memberNickname }">
 						탈퇴 회원
 					</c:if>
 			
@@ -164,6 +163,7 @@
 					success : function(data) {
 						that.prop('name', data);
 						console.log("success:" + that.prop('name', data));
+// 						location.reload();
 						if (data == 1) {
 							 $('#heart').prop("src",'<c:url value="/resources"/>'+"/static/images/like2.png");
 						} else {

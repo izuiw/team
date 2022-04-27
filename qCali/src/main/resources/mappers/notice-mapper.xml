@@ -12,7 +12,7 @@
 	</select>
 	
 	<select id="noticeDetail" parameterType="Long" resultType="noticeVo">
-		select NOTICE_SEQ, NOTICE_TITLE, NOTICE_CONTENT, to_char(notice_reg_day,'yyyy.mm.dd') from "NOTICE" where "NOTICE_SEQ" = #{noticeSeq}
+		select NOTICE_SEQ, NOTICE_TITLE, NOTICE_CONTENT, to_char(notice_reg_day,'yyyy.mm.dd') notice_reg_day from "NOTICE" where "NOTICE_SEQ" = #{noticeSeq}
 	</select>
 	<select id="noticeTotal" resultType="Integer">
 		select count(*) from NOTICE

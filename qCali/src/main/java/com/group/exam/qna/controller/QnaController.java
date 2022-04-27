@@ -176,7 +176,7 @@ public class QnaController {
 		}
 		
 		qnaService.qnaUpdate(vo);
-		return "redirect:detail?qnaSeq="+vo.getQnaSeq();
+		return "redirect:detail/"+vo.getQnaSeq();
 	}
 
 	//첨부 파일

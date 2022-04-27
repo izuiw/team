@@ -1,12 +1,10 @@
 package com.group.exam.board.vo;
 
-import java.util.Date;
-
 public class NoticeAdminVo {
 	private String noticeTitle;
 	private String adminNickname;
 	private int rownum; 
-	private Date noticeRegDay;
+	private String noticeRegDay;
 	private String noticeContent;
 	private long noticeSeq;
 	
@@ -17,10 +15,11 @@ public class NoticeAdminVo {
 	public void setNoticeSeq(long noticeSeq) {
 		this.noticeSeq = noticeSeq;
 	}
-	public Date getNoticeRegDay() {
+	
+	public String getNoticeRegDay() {
 		return noticeRegDay;
 	}
-	public void setNoticeRegDay(Date noticeRegDay) {
+	public void setNoticeRegDay(String noticeRegDay) {
 		this.noticeRegDay = noticeRegDay;
 	}
 	public String getNoticeContent() {
@@ -47,6 +46,12 @@ public class NoticeAdminVo {
 	}
 	public void setAdminNickname(String adminNickname) {
 		this.adminNickname = adminNickname;
+	}
+	@Override
+	public String toString() {
+		return "NoticeAdminVo [noticeTitle=" + noticeTitle + ", adminNickname=" + adminNickname + ", rownum=" + rownum
+				+ ", noticeRegDay=" + noticeRegDay + ", noticeContent=" + noticeContent + ", noticeSeq=" + noticeSeq
+				+ "]";
 	}
 	
 	

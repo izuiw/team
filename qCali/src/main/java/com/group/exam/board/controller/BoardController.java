@@ -64,12 +64,6 @@ public class BoardController {
 		this.memberService = memberService;
 	}
 
-	@RequestMapping("/noticeBoard")
-	public String noticeBoard(Model model) {
-		List<NoticeAdminVo> notice = boardService.noticelist();
-		model.addAttribute("notice", notice);
-		return "/board/noticeBoard";
-	}
 
 	@GetMapping(value = "/write")
 	public String insertBoard(@ModelAttribute("boardData") BoardVo boardVo, HttpSession session) {
@@ -99,12 +93,11 @@ public class BoardController {
 
 		// insert
 		boardService.insertBoard(boardVo);
-		
-		//calendar insert
-		//boardSeq를 넣는다.
-		int currentSeq = boardService.currentBoardSeq();
-		calendarService.insertCalendar(currentSeq);
 
+		// calendar insert
+		// boardSeq를 넣는다.
+		Long currentSeq = boardService.currentBoardSeq();
+		calendarService.insertCalendar(currentSeq);
 
 		int mytotal = boardService.mylistCount(loginMember.getMemberSeq());
 
@@ -163,7 +156,7 @@ public class BoardController {
 			printWriter = response.getWriter();
 			// String fileUrl = "localhost:8080/exam/board/ckUploadSubmit?uuid=" + uuid +
 			// "&fileName=" + upload.getOriginalFilename(); // 작성화면
-			String fileUrl = "/imgUpload/" + new SimpleDateFormat("yyyy/MM/dd").format(new Date()) + "/" + ckUploadPath;
+			String fileUrl = "/boardImg/" + new SimpleDateFormat("yyyy/MM/dd").format(new Date()) + "/" + ckUploadPath;
 
 			// 업로드시 메시지 출력
 			printWriter.println(
@@ -220,7 +213,7 @@ public class BoardController {
 
 		// 질문 출력 관련
 		if (num == 0) {
-			 num = boardService.currentSequence();
+			num = boardService.currentSequence();
 			if (num == 0) {
 				num = 1;
 			}
@@ -229,7 +222,14 @@ public class BoardController {
 		QuestionAdayCommand question = boardService.questionselect(num);
 
 		model.addAttribute("boardQuestion", question);
-
+		System.out.println(question);
+		
+		//공지사항
+		List<NoticeAdminVo> notice = boardService.noticelist();
+		System.out.println(notice);
+		model.addAttribute("notice", notice);
+		
+		
 		return "board/list";
 	}
 

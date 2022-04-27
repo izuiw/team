@@ -48,13 +48,6 @@ table {
 	<a href="<c:url value='/member/findPwd'/>"><button>비밀번호 찾기</button></a>
 	<a href="<c:url value='/member/insert'/>"><button>회원가입</button></a>
 
-	<fieldset>
-
-		<div id="googleLoginBtn" style="cursor: pointer">
-			<img id="googleLoginImg"
-				src="<c:url value='/resources'/>/static/images/google_login_button.png" />
-		</div>
-	</fieldset>
 
 
 </body>

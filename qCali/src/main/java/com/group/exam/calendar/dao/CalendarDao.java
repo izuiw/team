@@ -13,5 +13,5 @@ public interface CalendarDao {
 	public List<CalendarBoardVo> boardByDate(HashMap<String, Object> map);
 	public int boardByDateTotal(String date);
 	//board추가 시 calendar에 insert
-	public void insertCalendar(int currentSeq);
+	public void insertCalendar(Long currentSeq);
 }

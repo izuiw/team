@@ -5,9 +5,10 @@
 
 
 <mapper namespace="BoardDao">
+
 	<select id="noticeSelectInMain"
 		resultType="com.group.exam.board.vo.NoticeAdminVo">
-		select * from (select ROWNUM, N.NOTICE_SEQ, N.NOTICE_TITLE,
+		select * from (select ROWNUM, N.NOTICE_SEQ, N.NOTICE_TITLE,to_char(N.NOTICE_REG_DAY,'yy.mm.dd') notice_reg_day,
 		A.ADMIN_NICKNAME
 		from NOTICE N right join ADMIN A ON N.ADMIN_SEQ = 0
 		order by NOTICE_REG_DAY desc)
@@ -26,7 +27,7 @@
 		#{questionSeq}))
 	</insert>
 	
-	<select id="currentBoardSeq" resultType="Integer">
+	<select id="currentBoardSeq" resultType="Long">
 		select b_seq.currval from dual
 	</select>
 	
@@ -53,12 +54,12 @@
 <![CDATA[select *
 from (select ROWNUM rn, B.BOARD_SEQ, B.BOARD_TITLE, to_char(B.BOARD_REG_DAY, 'yyyy.mm.dd') BOARD_REG_DAY,
 B.BOARD_LIKE, B.BOARD_COUNT, M.MEMBER_NICKNAME, M.MEMBER_SEQ  
-from MEMBER M right join BOARD B on M.MEMBER_SEQ = B.MEMBER_SEQ )
+from MEMBER M right join BOARD B on M.MEMBER_SEQ = B.MEMBER_SEQ  order by board_seq desc)
 where rn between #{rowStart} and #{rowEnd} ]]>
 	</select>
 
 	<!-- -->
-	<select id="questionselect" parameterType="Long"
+	<select id="questionselect" parameterType="Integer"
 		resultType="com.group.exam.board.command.QuestionAdayCommand">
 		select question_content, question_seq from
 		(select rownum AS
@@ -91,13 +92,13 @@ from (select ROWNUM rn, B.BOARD_SEQ,
 B.BOARD_TITLE, to_char(B.BOARD_REG_DAY, 'yyyy.mm.dd') BOARD_REG_DAY, B.BOARD_LIKE, B.BOARD_COUNT, 
 M.MEMBER_NICKNAME, M.MEMBER_SEQ 
 from MEMBER M right join BOARD B on M.MEMBER_SEQ = B.MEMBER_SEQ 
-where M.member_seq = #{memberSeq}) where rn between #{rowStart} and #{rowEnd}
+where M.member_seq = #{memberSeq}  order by board_seq desc) where rn between #{rowStart} and #{rowEnd}
 		]]>
 
 	</select>
 
 	<!-- 게시글 디테일 -->
-	<select id="boardlistDetail" parameterType="Integer"
+	<select id="boardlistDetail" parameterType="Long"
 		resultType="com.group.exam.board.command.BoardlistCommand">
 
 		<![CDATA[select B.BOARD_SEQ, B.BOARD_TITLE, to_char(B.BOARD_REG_DAY, 'yyyy.mm.dd') BOARD_REG_DAY, B.BOARD_LIKE, B.BOARD_COUNT, M.MEMBER_NICKNAME, M.MEMBER_SEQ, B.BOARD_CONTENT
@@ -161,7 +162,7 @@ from (select ROWNUM rn, B.BOARD_SEQ,
 B.BOARD_TITLE, to_char(B.BOARD_REG_DAY, 'yyyy.mm.dd') BOARD_REG_DAY, B.BOARD_LIKE, B.BOARD_COUNT, 
 M.MEMBER_NICKNAME, M.MEMBER_SEQ 
 from MEMBER M right join BOARD B on M.MEMBER_SEQ = B.MEMBER_SEQ 
-where M.MEMBER_NICKNAME = #{searchWord}) where rn between #{rowStart} and #{rowEnd}
+where M.MEMBER_NICKNAME = #{searchWord}  order by board_seq desc) where rn between #{rowStart} and #{rowEnd}
 		]]>
 		</if>
 
@@ -171,7 +172,7 @@ from (select ROWNUM rn, B.BOARD_SEQ,
 B.BOARD_TITLE, to_char(B.BOARD_REG_DAY, 'yyyy.mm.dd') BOARD_REG_DAY, B.BOARD_LIKE, B.BOARD_COUNT, 
 M.MEMBER_NICKNAME, M.MEMBER_SEQ 
 from MEMBER M right join BOARD B on M.MEMBER_SEQ = B.MEMBER_SEQ 
-where B.BOARD_TITLE LIKE '%'||#{searchWord}||'%') where rn between #{rowStart} and #{rowEnd}
+where B.BOARD_TITLE LIKE '%'||#{searchWord}||'%'  order by board_seq desc) where rn between #{rowStart} and #{rowEnd}
 		]]>
 		</if>
 	</select>

@@ -46,7 +46,7 @@ public class CalendarServiceImpl implements CalendarService{
 	}
 
 	@Override
-	public void insertCalendar(int currentSeq) {
+	public void insertCalendar(Long currentSeq) {
 		calendarDao.insertCalendar(currentSeq);
 	}
 
