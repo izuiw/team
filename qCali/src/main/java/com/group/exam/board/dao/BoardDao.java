@@ -37,6 +37,8 @@ public interface BoardDao {
 	public int memberLevelup(HashMap<String, Object> map); // 멤버 level up 기능
 
 	public List<BoardlistCommand> boardSearch(HashMap<String, Object> map); // 닉네임, 제목으로 검색
+	
+	public int boardSearchCount (HashMap<String, Object> map); //서치 게시글 수
 
 	// 질문 하루마다 출력 기능 관련
 	public QuestionAdayCommand questionselect(int num);

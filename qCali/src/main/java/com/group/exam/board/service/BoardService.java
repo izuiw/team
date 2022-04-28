@@ -36,6 +36,8 @@ public interface BoardService {
 	public int memberLevelup(Long memberSeq, int mytotal, int memberLevel);
 
 	public List<BoardlistCommand> boardSearch(HashMap<String, Object> map);// 닉네임, 제목으로 검색
+	
+	public int boardSearchCount (HashMap<String, Object> map); //서치 게시글 수
 
 	// 하루마다 질문 출력
 

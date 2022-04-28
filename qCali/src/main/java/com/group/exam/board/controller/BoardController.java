@@ -412,17 +412,33 @@ public class BoardController {
 	@GetMapping(value = "/search")
 	public String boardSearchList(@RequestParam("searchOption") String searchOption,
 			@RequestParam("searchWord") String searchWord, Model model, Criteria cri) {
-		System.out.println("?" + searchOption + "\t" + searchWord);
+		
 		HashMap<String, Object> map = new HashMap<String, Object>();
 
 		map.put("searchOption", searchOption);
 		map.put("searchWord", searchWord);
+
+		int total = boardService.boardSearchCount(map);
+		
 		map.put("rowStart", cri.getRowStart());
 		map.put("rowEnd", cri.getRowEnd());
 		List<BoardlistCommand> list = boardService.boardSearch(map);
 
-		System.out.println("list" + list.toString());
+		
+		
+		PagingVo pageCommand = new PagingVo();
+		pageCommand.setCri(cri);
+		pageCommand.setTotalCount(total);
+		model.addAttribute("boardTotal", total);
+		model.addAttribute("pageMaker", pageCommand);
 		model.addAttribute("boardList", list);
+		
+		//질문 출력
+		
+		QuestionAdayCommand question = boardService.questionselect(num);
+		model.addAttribute("boardQuestion", question);
+		
+		
 		return "/board/list";
 	}
 
