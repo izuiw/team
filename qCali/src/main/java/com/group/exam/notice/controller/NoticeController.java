@@ -74,6 +74,7 @@ public class NoticeController {
 
 	@RequestMapping(value = "/notice/write", method = RequestMethod.GET)
 	public String write(HttpSession session) {
+		
 		return "/notice/write";
 	}
 

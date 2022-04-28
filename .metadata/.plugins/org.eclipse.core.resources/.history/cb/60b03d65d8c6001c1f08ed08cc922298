@@ -9,10 +9,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<div id="kakao_id_login" style="text-align: center">
-		<a href="${kakao_url}"> 
-		<img src="<c:url value='/resources/static/images/kakao_login_medium_narrow.png'/> "/></a>
-	</div>
 
 </body>
 </html>

@@ -47,15 +47,14 @@ table {
 
 	<a href="<c:url value='/member/findPwd'/>"><button>비밀번호 찾기</button></a>
 	<a href="<c:url value='/member/insert'/>"><button>회원가입</button></a>
-	                <!--네이버 로그인 추가-->
-	                <br>
-                <a href="${naverLoginURL }">
-                <img
-				src="<c:url value='/resources'/>/static/images/btnG_완성형.png" width="100px"	/>
-					
-                </a>
-
-
+	<!--네이버 로그인 추가-->
+	<br>
+    <a href="${naverLoginURL }">
+    <img src="<c:url value='/resources'/>/static/images/btnG_완성형.png" width="180px"	/></a>
+	<div id="kakao_id_login" style="text-align: center">
+		<a href="${kakao_url}"> 
+		<img src="<c:url value='/resources/static/images/kakao_login_medium_narrow.png'/> "/></a>
+	</div>
 
 </body>
 
