@@ -96,7 +96,7 @@ public class NoticeController {
 	}
 
 	@RequestMapping(value = "/notice/delete", method = RequestMethod.GET)
-	public String noticeDelete(@RequestParam("noticeSeq") Long noticeSeq, HttpSession session) {
+	public String noticeDelete(@RequestParam("noticeSeq") Long noticeSeq, HttpSession session0 {
 		if(session.getAttribute("adminAuthInfoCommand") == null) {
 			return "/main";
 		}

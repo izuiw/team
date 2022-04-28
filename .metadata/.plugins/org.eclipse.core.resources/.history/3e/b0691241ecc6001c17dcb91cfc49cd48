@@ -10,6 +10,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
+import javax.mail.Session;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -96,7 +97,7 @@ public class NoticeController {
 	}
 
 	@RequestMapping(value = "/notice/delete", method = RequestMethod.GET)
-	public String noticeDelete(@RequestParam("noticeSeq") Long noticeSeq, HttpSession session) {
+	public String noticeDelete(@RequestParam("noticeSeq") Long noticeSeq, HttpServletSession session) {
 		if(session.getAttribute("adminAuthInfoCommand") == null) {
 			return "/main";
 		}
@@ -107,7 +108,7 @@ public class NoticeController {
 	}
 
 	@RequestMapping(value = "/notice/update", method = RequestMethod.GET)
-	public String noticeUpdate(@RequestParam("noticeSeq") Long noticeSeq, Model model, HttpSession session) {
+	public String noticeUpdate(@RequestParam("noticeSeq") Long noticeSeq, Model model, Session session) {
 		if(session.getAttribute("adminAuthInfoCommand") == null) {
 			return "/main";
 		}
