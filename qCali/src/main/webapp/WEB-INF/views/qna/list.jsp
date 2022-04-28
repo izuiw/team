@@ -7,6 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <link href="<c:url value='/resources/static/css/dropdown.css'/> " rel="stylesheet" type="text/css">
+
 <title>Q&A list</title>
 </head>
 <body>
@@ -49,13 +50,7 @@
 			
 			<c:if test="${!empty list.qnaWriter }">	
 				<td>
-				<div class="dropdown">
-					<a class="dropbtn">${list.qnaWriter }</a>
-					<div class="dropdown-content">
-						<a href="#">게시물 보기</a>
-						<a href="#">회원 정보 보기</a>
-					</div>
-				</div>
+					${list.qnaWriter }
 				</td>
 			</c:if>
 			
@@ -70,10 +65,19 @@
 					<td><div class="dropdown">
 							<button class="dropbtn">${ list.memberNickname}</button>
 							<div class="dropdown-content">
-								<a href="<c:url value='/board/mylist/memberSeq=${list.memberSeq }'/> ">게시물 보기</a>
-								<a href="<c:url value='/board/'/> ">회원 정보 보기</a>
+								<a href="<c:url value='/board/mylist?memberSeq=${list.memberSeq }'/> ">게시물 보기</a>
+								<a href=# onclick="popUpInfo();">회원 정보 보기</a>
 							</div>
 						</div></td>
+						
+						<script type="text/javascript">
+							function popUpInfo(){
+								let url = "${pageContext.request.contextPath}/member/popup?memberSeq=${list.memberSeq}";
+								let name = "Member 정보";
+								let specs = "height=300, width= 250, status = no, location= no, top=100, left=100";
+								window.open(url, name, specs);
+							}
+						</script>
 				</c:if>
 			</c:if>
 			
