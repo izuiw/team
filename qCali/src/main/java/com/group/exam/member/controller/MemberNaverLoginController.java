@@ -107,14 +107,10 @@ public class MemberNaverLoginController {
 
 				System.out.println("user임시 닉네임 중복");
 				memberNickname = "USER_" + buffer.toString() + "_N";
-			} else {
-
-				return "errors/erros";
 			}
-
+			
 			// 임시 비밀번호 셋팅
-
-			insertCommand.setMemberPassword("1234");
+			insertCommand.setMemberPassword("naverLogin_tmpPW");
 
 			// db 등록
 			System.out.println("db저장 값 \n" + insertCommand);
