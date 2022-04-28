@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.group.exam.member.command.InsertCommand;
 import com.group.exam.member.command.LoginCommand;
+import com.group.exam.member.command.MemberInfoCommand;
 import com.group.exam.member.dao.MemberDAO;
 import com.group.exam.member.vo.MemberVo;
 
@@ -119,6 +120,13 @@ public class MemberServiceImpl implements MemberService {
 		
 		map.put("api", api);
 		map.put("memberSeq", memberSeq);
+		memberDAO.updateApiStatus(map);
+	}
+
+	@Override
+	public MemberInfoCommand memberInfo(Long memberSeq) {
+		// TODO Auto-generated method stub
+		return memberDAO.memberInfo(memberSeq);
 	}
 
 

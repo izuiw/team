@@ -2,6 +2,7 @@ package com.group.exam.member.service;
 
 import com.group.exam.member.command.InsertCommand;
 import com.group.exam.member.command.LoginCommand;
+import com.group.exam.member.command.MemberInfoCommand;
 
 public interface MemberService {
 	
@@ -24,6 +25,8 @@ public interface MemberService {
 	
 	public void updateApiStatus(String api, Long memberSeq);
 	
+	//popup Member정보
+	public MemberInfoCommand memberInfo(Long memberSeq);
 	
 	//회원 정보 수정 관련
 	

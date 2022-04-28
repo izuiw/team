@@ -51,7 +51,13 @@
 	</table>
 	${msg}
 	<br>
-	<input type="submit" value="비밀번호 변경하기" >
+	<input type="button" onClick="javascript:submit_close();" value="비밀번호 변경하기" >
+	<script type="text/javascript">
+		function submit_close() {
+			document.frmName.submit();
+			self.close();
+		}
+	</script>
 </form:form>
 
 </body>

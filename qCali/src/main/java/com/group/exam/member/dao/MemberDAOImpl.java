@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.group.exam.member.command.InsertCommand;
 import com.group.exam.member.command.LoginCommand;
+import com.group.exam.member.command.MemberInfoCommand;
 import com.group.exam.member.vo.MemberVo;
 
 @Repository
@@ -94,6 +95,12 @@ public class MemberDAOImpl implements MemberDAO {
 	public void updateApiStatus(HashMap<String, Object> map) {
 		sqlSessionTemplate.update("updateApiStatus", map);
 
+	}
+
+	@Override
+	public MemberInfoCommand memberInfo(Long memberSeq) {
+		// TODO Auto-generated method stub
+		return sqlSessionTemplate.selectOne("memberInfo", memberSeq);
 	}
 
 }
