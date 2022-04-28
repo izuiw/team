@@ -1,5 +1,7 @@
 package com.group.exam.member.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
@@ -11,64 +13,112 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.group.exam.board.command.BoardlistCommand;
+import com.group.exam.board.service.BoardService;
 import com.group.exam.member.command.LoginCommand;
 import com.group.exam.member.command.MemberFindPwdCommand;
 import com.group.exam.member.command.MemberchangePwd;
 import com.group.exam.member.service.MailSendService;
 import com.group.exam.member.service.MemberService;
+import com.group.exam.utils.Criteria;
+import com.group.exam.utils.PagingVo;
 
 @Controller
 @RequestMapping(value = "/member/mypage")
 public class MemberMypageController {
 
 	private MemberService memberService;
+	
+	private BoardService boardService;
 
 	private BCryptPasswordEncoder passwordEncoder;
 
 	@Autowired
-	public MemberMypageController(MemberService memberService, BCryptPasswordEncoder passwordEncoder) {
+	public MemberMypageController(MemberService memberService, BCryptPasswordEncoder passwordEncoder, BoardService boardService) {
 
 		this.memberService = memberService;
 		this.passwordEncoder = passwordEncoder;
+		this.boardService = boardService;
 	}
 
 	@GetMapping(value = "/confirmPwd")
-	public String confirmPwd(String memberPassword, HttpSession session) {
-
+	public String confirmPwd(String memberPassword, HttpSession session, Model model, Criteria cri) {
+		
+		boolean confirmPW = false;
+		
 		// api 로그인 시, 비밀번호 확인 안하고 마이페이지 바로 이동.
 		LoginCommand command = (LoginCommand) session.getAttribute("memberLogin");
-
+		
 		if (command.getNaver().equals("T") || command.getKakao().equals("T")) {
+			
+			confirmPW = true;
+			model.addAttribute("confirmPW", confirmPW);
+			
+			//마이페이지에 본인 쓴 글 바로 출력 
+			int total = boardService.mylistCount(command.getMemberSeq());
+
+			List<BoardlistCommand> list = boardService.boardMyList(cri, command.getMemberSeq());
+			model.addAttribute("boardList", list);
+
+			PagingVo pageCommand = new PagingVo();
+			pageCommand.setCri(cri);
+			pageCommand.setTotalCount(total);
+			model.addAttribute("boardTotal", total);
+			model.addAttribute("pageMaker", pageCommand);
+			
 			return "member/mypage";
 		}
-
-		return "/member/mypagePwd";
+		
+		model.addAttribute("confirmPW", confirmPW);
+		return "/member/mypage";
 	}
 
 	// 마이페이지 가기 전에 비밀번호 체크
 	@PostMapping(value = "/confirmPwd")
-	public String confirmPwd(@RequestParam String memberPassword, Model model, HttpSession session) {
-
+	public String confirmPwd(@RequestParam String memberPassword, Model model, HttpSession session, Criteria cri) {
+		
+		boolean confirmPW = false;
+		
 		LoginCommand command = (LoginCommand) session.getAttribute("memberLogin");
 
 		String encodePassword = memberService.findPwd(command.getMemberId()).getMemberPassword();
 		boolean pwdEncode = passwordEncoder.matches(memberPassword, encodePassword);
 
 		if (pwdEncode) {
+			confirmPW = true;
+			model.addAttribute("confirmPW", confirmPW);
+			
+			//마이페이지에 본인 쓴 글 바로 출력 
+			int total = boardService.mylistCount(command.getMemberSeq());
+
+			List<BoardlistCommand> list = boardService.boardMyList(cri, command.getMemberSeq());
+			model.addAttribute("boardList", list);
+
+			PagingVo pageCommand = new PagingVo();
+			pageCommand.setCri(cri);
+			pageCommand.setTotalCount(total);
+			model.addAttribute("boardTotal", total);
+			model.addAttribute("pageMaker", pageCommand);
+			
 			return "/member/mypage";
 		}
+		
+		model.addAttribute("confirmPW", confirmPW);
 		model.addAttribute("msg", "비밀번호가 다릅니다.");
 
-		return "/member/mypagePwd";
+		return "/member/mypage";
 	}
 
 	// 비밀번호 변경
 	@GetMapping(value = "changePwd")
 	public String changePwd(@ModelAttribute("changepwdData") MemberchangePwd changepwdData, HttpSession session) {
+		
 		return "/member/changePwdForm";
 	}
 
@@ -131,18 +181,23 @@ public class MemberMypageController {
 	// 닉네임 변경
 	@GetMapping(value = "/changeNickname")
 	public String changeNickname(HttpSession session) {
+		System.out.println("dddd");
 
 		return "/member/changeNicknameForm";
 	}
 
 	@PostMapping(value = "/changeNickname")
-	public String changeNickname(@RequestParam(required = false) String memberNickname, HttpSession session,
+	@ResponseBody
+	public String changeNickname(@RequestBody String memberNickname, HttpSession session,
 			Model model) {
 
 		LoginCommand command = (LoginCommand) session.getAttribute("memberLogin");
-
+		
+	
+		System.out.println(memberNickname);
+		
 		int result = memberService.updateMemberNickname(memberNickname, command.getMemberSeq());
-
+		
 		if (result != 1) {
 			System.out.println("닉네임 변경 실패");
 			return "errors/mypageChangeError";// 에러 페이지
@@ -152,7 +207,7 @@ public class MemberMypageController {
 		LoginCommand login = memberService.login(command.getMemberId());
 
 		session.setAttribute("memberLogin", login);
-		return "/member/member_alert/changeNext";
+		return "/member/changeNicknameForm";
 
 	}
 
@@ -160,7 +215,7 @@ public class MemberMypageController {
 	@GetMapping(value = "/delete")
 	public String deleteMember(HttpSession session) {
 
-		return "/member/deleteForm";
+		return "/member/mypage";
 
 	}
 
@@ -188,7 +243,7 @@ public class MemberMypageController {
 		}
 		model.addAttribute("msg", "비밀번호가 다릅니다.");
 
-		return "/member/deleteForm";
+		return "/member/mypage";
 	}
 
 }

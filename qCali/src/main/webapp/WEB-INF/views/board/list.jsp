@@ -56,7 +56,7 @@ li {
 			<a href="<c:url value='/member/logout'/>"><button>로그아웃</button></a>
 			<a
 				href="<c:url value='/board/write?questionSeq=${boardQuestion.questionSeq }'/>"><button>글쓰기</button></a>
-
+			<a href="<c:url value='/board/mylist?memberSeq=${memberLogin.memberSeq}'/>"><button>내가 쓴 글 모아보기</button></a>
 			<a href="<c:url value='/member/questionAdd'/>"><button>질문
 					등록하기</button></a>
 			<a

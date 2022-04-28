@@ -282,9 +282,11 @@ public class BoardController {
 
 			model.addAttribute("myArticle", myArticle);
 		}
+		
 
 		model.addAttribute("boardList", list);
 		model.addAttribute("boardSeq", boardSeq);
+		
 
 		BoardHeartVo likeVo = new BoardHeartVo();
 

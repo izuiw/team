@@ -27,12 +27,20 @@
 	                } else if (data == 0) {
 	                    document.getElementById('nickSame').innerHTML='사용 가능한 닉네임 입니다.';
 			            document.getElementById('nickSame').style.color='blue';
+			            submitFlag = true
 	                }
+	                doSignUp();
 	            }
 
 	        })
 	    }
 
+	  function doSignUp() {
+
+		  if (submitFlag == true) {
+		  		$("#insertData").prop("disabled", false);
+		  }
+  }
 
 	</script>
 <body>
@@ -41,12 +49,13 @@
 <h3>닉네임 변경</h3> 
 
 현재 닉네임 : ${memberLogin.memberNickname} <br>
-<form action="${pageContext.request.contextPath}/member/mypage/changeNickname" method="POST" >
+<form>
 
 <table border="1">
 
 		<tr>
-			<th>닉네임</th><td><input name="memberNickname" id="memberNickname" />
+			<th>닉네임</th><td>
+			<input name="memberNickname" id="memberNickname" />
 			
 			<button type="button" onclick="nickCheck()">중복확인</button>
 			${msg}
@@ -57,7 +66,29 @@
 	</table>
 	
 	<br>
-	<input type="submit" value="닉네임 변경하기" >
+	
+		<input type="button" onClick="submit_close();" value="닉네임 변경하기" id="insertData"disabled />
+	
+	
+	<script type="text/javascript">
+	function submit_close() {
+		
+		//var memberNickname = $("#memberNickname").val();
+		//var data = JSON.stringify()
+		//닉네임 벨류값 이상하게 들어감
+		$.ajax(
+				{
+					url : '${pageContext.request.contextPath}/member/mypage/changeNickname',
+					type : 'POST',
+					data : {"memberNickname" : $("#memberNickname").val()},
+					success : function()
+						{
+							window.close();
+						}
+				});
+	}
+
+	</script>
 </form>
 
 
