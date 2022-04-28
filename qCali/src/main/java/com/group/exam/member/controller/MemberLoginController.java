@@ -52,7 +52,7 @@ public class MemberLoginController {
 		model.addAttribute("naverLoginURL", naverAuthUrl);
 
 		// 카카오 로그인 추가
-
+		
 		// 로그인 세션이 이미 있을 경우
 		if (session.getAttribute("memberLogin") != null) {
 			return "home";

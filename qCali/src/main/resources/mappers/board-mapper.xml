@@ -176,5 +176,21 @@ where B.BOARD_TITLE LIKE '%'||#{searchWord}||'%'  order by board_seq desc) where
 		]]>
 		</if>
 	</select>
+	
+		<!--서치 글 수 -->
+	<select id="boardSearchCount" parameterType="HashMap" resultType="Integer">
+
+		<if test='searchOption.equals("memberNickname")'>
+			select count(*) from
+			BOARD where MEMBER_SEQ = #{memberSeq}
+
+		</if>
+
+		<if test='searchOption.equals("boardTitle")'>
+			select count(*) from BOARD where BOARD_TITLE LIKE
+			'%'||#{searchWord}||'%'
+		</if>
+	</select>
+	
 
 </mapper>

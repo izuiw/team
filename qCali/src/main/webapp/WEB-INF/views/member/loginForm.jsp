@@ -47,19 +47,17 @@ table {
 
 	<a href="<c:url value='/member/findPwd'/>"><button>비밀번호 찾기</button></a>
 	<a href="<c:url value='/member/insert'/>"><button>회원가입</button></a>
+	                <!--네이버 로그인 추가-->
+	                <br>
+                <a href="${naverLoginURL }">
+                <img
+				src="<c:url value='/resources'/>/static/images/btnG_완성형.png" width="100px"	/>
+					
+                </a>
 
 
 
 </body>
 
-<script>
- 	const onClickGoogleLogin = (e) => {
-    	//구글 인증 서버로 인증코드 발급 요청
- 		window.location.replace("https://accounts.google.com/o/oauth2/v2/auth?client_id=68355066340-ghvpek91dtd21jgoiprdgc0115p2d42d.apps.googleusercontent.com&redirect_uri=http://localhost:8080/exam/login/google/auth&response_type=code&scope=email%20profile%20openid%20https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fdrive.file&access_type=offline")
- 	}
-	
-	const googleLoginBtn = document.getElementById("googleLoginBtn");
-	googleLoginBtn.addEventListener("click", onClickGoogleLogin);
-    
-</script>
+
 </html>

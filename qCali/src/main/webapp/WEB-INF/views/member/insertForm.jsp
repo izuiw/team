@@ -9,11 +9,16 @@
 <meta charset="UTF-8">
 <title>회원가입</title>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
 </head>
 	<script type="text/javascript">
 let idck = false;
 let pwck = false;
 let nickck = false;
+
 
 	function pwCheck() {
 
@@ -29,7 +34,7 @@ let nickck = false;
 	            
 	        }
 	    }
-	    DoSignUp();
+	    doSignUp();
 	}
 
 
@@ -55,7 +60,7 @@ let nickck = false;
 						            document.getElementById('idSame').style.color='blue';
 						            idck = true;
 				                }
-				                DoSignUp();
+				                doSignUp();
 				            }
 
 				        })
@@ -82,46 +87,18 @@ let nickck = false;
 			            document.getElementById('nickSame').style.color='blue';
 			            nickck = true;
 	                }
-	                DoSignUp();
+	                doSignUp();
 	            }
 
 	        });
 	        
 	    }
 
-		function dateCheck() {
-			var str = document.getElementById('memberBirthDay').value;
-			var pattern = /^(19|20)\d{2}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[0-1])$/;
-			if (!pattern.test(str)) {
-				document.getElementById('date').innerHTML = '형식에 맞게 입력하세요.';
-				document.getElementById('date').style.color = 'red';
-			} else {
-				document.getElementById('date').innerHTML = '';
-			}
-		}
 
-		function DoSignUp() {
+		
 
-			/* if (idck == false) {
-				alert("이메일 중복 체크를 해주세요");
-				$("#memberId").focus();
-				return;
-			}
-			if (pwck == false) {
-				alert("비밀번호 확인 체크를 해주세요");
-				$("#memberPassword").focus();
-				return;
-			}
-			if (nickck == false) {
-				alert("닉네임 중복 체크를 해주세요");
-				$("#memberNickname").focus();
-				return;
-			} */
-	<%-- if (confirm("회원가입을 하시겠습니까?")) {
-			  location.href = "<c:url value='/member/insert'/>"; } --%>
-			  console.log(idck);
-			  console.log(pwck);
-			  console.log(nickck);
+		function doSignUp() {
+
 			  if (idck == true && pwck == true && nickck == true) {
 			  		$("#memberInsert").prop("disabled", false);
 			  }
@@ -135,28 +112,46 @@ let nickck = false;
 
 <table border="1">
 		<tr>
-			<th>이메일</th><td><form:input path="memberId" id="memberId" placeholder="이메일 입력  "/><form:errors path="memberId"/>
+			<th>이메일</th><td><form:input path="memberId" placeholder="이메일 입력  "/><form:errors path="memberId"/>
 				<button type="button" onclick="idCheck()">아이디 중복확인</button>
 				<span id="idSame"></span>
 				</td>
 		</tr>
 		<tr>
-			<th>비밀번호</th><td><form:password path="memberPassword" id="memberPassword"/><form:errors path="memberPassword"/></td>
+			<th>비밀번호</th><td><form:password path="memberPassword" /><form:errors path="memberPassword"/></td>
 		</tr>
 		<tr>
-			<th>비밀번호 확인</th><td><form:password path="memberPasswordCheck" id="memberPasswordCheck"/><form:errors path="memberPasswordCheck"/>
+			<th>비밀번호 확인</th><td><form:password path="memberPasswordCheck" /><form:errors path="memberPasswordCheck"/>
 			<button type="button" onclick="pwCheck()"> 비밀번호 확인 </button>
 			<span id="pwSame"></span>
 		</td>
 		</tr>
 		<tr>
-			<th>닉네임</th><td><form:input path="memberNickname" id="memberNickname"/><form:errors path="memberNickname"/>
+			<th>닉네임</th><td><form:input path="memberNickname" /><form:errors path="memberNickname"/>
 			<button type="button" onclick="nickCheck()"> 닉네임 중복확인 </button>
 			<span id="nickSame"></span>
 			</td>
 		</tr>
 		<tr>
-			<th>생년월일</th><td><form:input path="memberBirthDay" id="memberBirthDay" placeholder="yyyy-mm-dd" onchange="dateCheck()"/><form:errors path="memberBirthDay"/>
+			<th>생년월일</th><td><form:input path="memberBirthDay"  placeholder="생일 입력" />
+			   <script>
+    		    $(function () {
+    		    
+           		 $("#memberBirthDay").datepicker({
+           			 //changeMonth: true,
+           			 //changeDay: true,
+           			 //changeYear: true,
+           			 showMonthAfterYear:false,
+           			 dateFormat:"mm-dd"
+           			
+           		 });
+           	
+        	});
+  			  </script>
+
+
+			<form:errors path="memberBirthDay"/>
+
 			
 			<span id="date"></span>
 			</td>

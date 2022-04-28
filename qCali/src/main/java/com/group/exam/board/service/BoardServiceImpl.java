@@ -243,5 +243,12 @@ public class BoardServiceImpl implements BoardService{
 	}
 
 
+	@Override
+	public int boardSearchCount(HashMap<String, Object> map) {
+		// TODO Auto-generated method stub
+		return boardDao.boardSearchCount(map);
+	}
+
+
 
 }

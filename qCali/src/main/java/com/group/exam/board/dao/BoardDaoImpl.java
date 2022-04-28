@@ -201,4 +201,10 @@ public class BoardDaoImpl implements BoardDao {
 		// TODO Auto-generated method stub
 		return sqlSessionTemplate.selectOne("currentBoardSeq");
 	}
+
+	@Override
+	public int boardSearchCount(HashMap<String, Object> map) {
+		// TODO Auto-generated method stub
+		return sqlSessionTemplate.selectOne("boardSearchCount", map);
+	}
 }
