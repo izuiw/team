@@ -26,7 +26,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.google.gson.JsonObject;
 import com.group.exam.admin.command.AdminAuthInfoCommand;
 import com.group.exam.notice.command.NoticeUpdateCommand;
 import com.group.exam.notice.command.WriteCommand;
@@ -74,6 +73,9 @@ public class NoticeController {
 
 	@RequestMapping(value = "/notice/write", method = RequestMethod.GET)
 	public String write(HttpSession session) {
+		if(session.getAttribute("adminAuthInfoCommand") == null) {
+			return "/main";
+		}
 		return "/notice/write";
 	}
 
@@ -94,14 +96,22 @@ public class NoticeController {
 	}
 
 	@RequestMapping(value = "/notice/delete", method = RequestMethod.GET)
-	public String noticeDelete(@RequestParam("noticeSeq") Long noticeSeq) {
+	public String noticeDelete(@RequestParam("noticeSeq") Long noticeSeq, HttpSession session) {
+		if(session.getAttribute("adminAuthInfoCommand") == null) {
+			return "/main";
+		}
+
 		noticeService.delete(noticeSeq);
 
 		return "redirect:/notice/list";
 	}
 
 	@RequestMapping(value = "/notice/update", method = RequestMethod.GET)
-	public String noticeUpdate(@RequestParam("noticeSeq") Long noticeSeq, Model model) {
+	public String noticeUpdate(@RequestParam("noticeSeq") Long noticeSeq, Model model, HttpSession session) {
+		if(session.getAttribute("adminAuthInfoCommand") == null) {
+			return "/main";
+		}
+
 		NoticeVo notice = noticeService.detail(noticeSeq);
 		model.addAttribute("notice", notice);
 //		model.addAttribute("NoticeUpdateCommand", new NoticeUpdateCommand());

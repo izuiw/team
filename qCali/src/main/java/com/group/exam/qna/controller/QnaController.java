@@ -68,7 +68,10 @@ public class QnaController {
 	
 	//신규 글 생성
 	@RequestMapping(value="/write", method= RequestMethod.GET)
-	public String insert() {
+	public String insert(HttpSession session) {
+		if(session.getAttribute("adminAuthInfoCommand")==null) {
+			return "/main";
+		}
 		return "/qna/write";
 	}
 	
@@ -111,7 +114,7 @@ public class QnaController {
 		
 		//수정 삭제 글 보이게..
 		AdminAuthInfoCommand adminSession = (AdminAuthInfoCommand) session.getAttribute("adminAuthInfoCommand");
-//		MemberLoginCommand memberSession = (MemberLoginCommand) session.getAttribute("memberLogin");
+		LoginCommand memberSession = (LoginCommand) session.getAttribute("memberLogin");
 		
 		if(adminSession != null) {
 	
@@ -121,13 +124,13 @@ public class QnaController {
 			model.addAttribute("admin", admin);
 		}
 		
-//		else if( memberSession != null) {
-//			if(memberSession.getmNickname().equals(vo.getQnaWriter())) {
-//				//본인이 쓴 글일 때
-//				String member = memberSession.getmNickname();
-//				model.addAttribute("member", member);
-//			}
-//		}
+		else if( memberSession != null) {
+			if(memberSession.getMemberNickname().equals(vo.getQnaWriter())) {
+				//본인이 쓴 글일 때
+				String member = memberSession.getMemberNickname();
+				model.addAttribute("member", member);
+			}
+		}
 		
 		return "/qna/detail";
 	}
@@ -188,6 +191,9 @@ public class QnaController {
 	//답글쓰기
 	@RequestMapping(value="/reply", method=RequestMethod.GET)
 	public String reply(@RequestParam Long qnaSeq, Model model,HttpSession session) {
+		if(session.getAttribute("adminAuthInfoCommand") == null) {
+			return "/main";
+		}
 		QnaVo vo = qnaService.detail(qnaSeq);
 		model.addAttribute("vo", vo);
 		return "/qna/reply";

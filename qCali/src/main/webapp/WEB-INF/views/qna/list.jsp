@@ -63,7 +63,8 @@
 				<c:if test="${!empty list.memberNickname }">
 					<!-- 회원의 닉네임이 있을 경우 -->
 					<td><div class="dropdown">
-							<button class="dropbtn">${ list.memberNickname}</button>
+					
+							<a class="dropbtn">${ list.memberNickname}</a>
 							<div class="dropdown-content">
 								<a href="<c:url value='/board/mylist?memberSeq=${list.memberSeq }'/> ">게시물 보기</a>
 								<a href=# onclick="popUpInfo();">회원 정보 보기</a>

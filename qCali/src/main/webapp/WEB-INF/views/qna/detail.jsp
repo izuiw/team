@@ -24,7 +24,7 @@
 			<c:if test="${empty vo.qnaWriter }">
 				<c:if test="${!empty vo.memberNickname }">
 					<td><div class="dropdown">
-							<button class="dropbtn">${ list.memberNickname}</button>
+							<a class="dropbtn">${ list.memberNickname}</a>
 							<div class="dropdown-content">
 								<a href="<c:url value='/board/mylist/memberSeq=${list.memberSeq }'/> ">게시물 보기</a> 
 								<a href="<c:url value='/board/'/> ">회원 정보 보기</a>

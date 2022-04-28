@@ -23,39 +23,42 @@ import com.group.exam.utils.MemberSessionConfig;
 public class MemberLoginController {
 
 	private BCryptPasswordEncoder passwordEncoder;
-
 	private NaverLoginBO naverLoginBO;
-
 	private MemberService memberService;
-
 	private MailSendService mss;
+	private MemberKakaoController kakao;
+	
 
 	@Autowired
 	public MemberLoginController(BCryptPasswordEncoder passwordEncoder, MemberService memberService,
-			NaverLoginBO naverLoginBO, MailSendService mss) {
+			NaverLoginBO naverLoginBO, MailSendService mss, MemberKakaoController kakao) {
 
 		// TODO Auto-generated constructor stub
 		this.passwordEncoder = passwordEncoder;
 		this.memberService = memberService;
 		this.naverLoginBO = naverLoginBO;
 		this.mss = mss;
+		this.kakao = kakao;
 	}
 
 	@RequestMapping(value = "/member/login", method = RequestMethod.GET)
 	public String handleLogin(@ModelAttribute("loginMemberData") LoginCommand logincommand, HttpSession session,
 			Model model) {
-
 		// 네이버 로그인
 		String naverAuthUrl = naverLoginBO.getAuthorizationUrl(session);
 		System.out.println("네이버:" + naverAuthUrl);
-
 		model.addAttribute("naverLoginURL", naverAuthUrl);
 
 		// 카카오 로그인 추가
 		
+		String kakaoUrl = kakao.getAuthorizationUrl(session);
+		System.out.println("카카오:"+ kakaoUrl);
+		model.addAttribute("kakao_url", kakaoUrl);
+		
+		
 		// 로그인 세션이 이미 있을 경우
 		if (session.getAttribute("memberLogin") != null) {
-			return "home";
+			return "/";
 		}
 		return "/member/loginForm";
 	}

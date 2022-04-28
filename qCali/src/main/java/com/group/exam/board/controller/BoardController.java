@@ -67,7 +67,9 @@ public class BoardController {
 
 	@GetMapping(value = "/write")
 	public String insertBoard(@ModelAttribute("boardData") BoardVo boardVo, HttpSession session) {
-
+		if(session.getAttribute("memberLogin") == null) {
+			return "/member/login";
+		}
 		return "board/writeForm";
 	}
 

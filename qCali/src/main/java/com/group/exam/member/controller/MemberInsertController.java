@@ -39,6 +39,7 @@ public class MemberInsertController {
 
 	@RequestMapping(value = "/member/insert", method = RequestMethod.GET)
 	public String insert(@ModelAttribute("InsertCommand") InsertCommand insertCommand) {
+		
 		return "/member/insertForm";
 	}
 

@@ -8,6 +8,7 @@
 <head>
 
 <meta charset="UTF-8">
+<link href="<c:url value='/resources/static/css/dropdown.css'/> " rel="stylesheet" type="text/css">
 
 <style>
 ul {
@@ -114,9 +115,6 @@ li {
 
 		</tr>
 
-
-
-
 		<c:if test="${ empty boardList}">
 			<tr>
 				<td colspan="7">게시판에 저장된 글이 없습니다.</td>
@@ -133,17 +131,34 @@ li {
 
 					</td>
 
-
-
-					<td><c:if test="${empty list.memberNickname }">
-                  탈퇴 회원
-               </c:if> ${list.memberNickname}</td>
+					<td>
+						<c:if test="${empty list.memberNickname }">
+                  			탈퇴 회원
+            		   </c:if>
+            		   <c:if test="${!empty list.memberNickname }">
+            		   
+            		   <div class="dropdown">
+							<a href="#" class="dropbtn">${ list.memberNickname}</a>
+							<div class="dropdown-content">
+								<a href="<c:url value='/board/mylist?memberSeq=${list.memberSeq }'/> ">게시물 보기</a>
+								<a href=# onclick="popUpInfo();">회원 정보 보기</a>
+								<script type="text/javascript">
+									function popUpInfo(){
+									let url = "${pageContext.request.contextPath}/member/popup?memberSeq=${list.memberSeq}";
+									let name = "Member 정보";
+									let specs = "height=300, width= 250, status = no, location= no, top=100, left=100";
+									window.open(url, name, specs);
+									}
+						</script>
+							</div>
+						</div>
+						</c:if>
+					</td>
 					<td>${list.boardRegday}</td>
 					<td>${list.boardLike}</td>
 					<td>${list.boardCount}</td>
-
 				</tr>
-
+						
 			</c:forEach>
 
 		</c:if>

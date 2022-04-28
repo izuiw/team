@@ -25,7 +25,7 @@
 		MEMBER_NICKNAME,
 		TO_CHAR(MEMBER_REG_DAY,'yyyy.mm.dd') MEMBER_REG_DAY,
 		TO_CHAR(MEMBER_BIRTH_DAY, 'yyyy.mm.dd') MEMBER_BIRTH_DAY,
-		MEMBER_AUTH
+		MEMBER_AUTH,
 		MEMBER_LEVEL
 
 	FROM MEMBER )
@@ -83,15 +83,15 @@
 	
 	<select id="adminboardList" resultType="com.group.exam.admin.command.AdminBoardCommand" parameterType="com.group.exam.utils.Criteria">
 		<![CDATA[
-<!-- 			select * from -->
-<!-- 			(select ROWNUM as rn, B.BOARD_SEQ, B.BOARD_TITLE, M.MEMBER_NICKNAME, B.BOARD_COUNT, B.BOARD_LIKE, -->
-<!-- 			TO_CHAR(B.BOARD_REG_DAY,'yyyy.mm.dd') BOARD_REG_DAY -->
-<!-- 			from MEMBER M -->
-<!-- 			right join BOARD B -->
-<!-- 			on M.MEMBER_SEQ = B.MEMBER_SEQ) -->
-<!-- 			where rn BETWEEN #{rowStart} and #{rowEnd} -->
-<!-- 			ORDER BY BOARD_SEQ DESC -->
-<!-- 		]]> -->
+ 			select * from 
+ 			(select ROWNUM as rn, B.BOARD_SEQ, B.BOARD_TITLE, M.MEMBER_NICKNAME, B.BOARD_COUNT, B.BOARD_LIKE,
+ 			TO_CHAR(B.BOARD_REG_DAY,'yyyy.mm.dd') BOARD_REG_DAY 
+ 			from MEMBER M 
+ 			right join BOARD B 
+ 			on M.MEMBER_SEQ = B.MEMBER_SEQ)
+ 			where rn BETWEEN #{rowStart} and #{rowEnd} 
+			ORDER BY BOARD_SEQ DESC 
+ 		]]> 
 	</select>
 	<select id="countBoardList" resultType="Integer">
 		<![CDATA[

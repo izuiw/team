@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-
+<link href="<c:url value='/resources/static/css/dropdown.css'/> " rel="stylesheet" type="text/css">
 
 
 
@@ -81,8 +81,24 @@
 					<c:if test="${empty boardList.memberNickname }">
 						탈퇴 회원
 					</c:if>
-			
-				${boardList.memberNickname}</td>
+					<c:if test="${!empty boardList.memberNickname }">
+						<div class="dropdown">
+							<a href="#" class="dropbtn">${ boardList.memberNickname}</a>
+							<div class="dropdown-content">
+								<a href="<c:url value='/board/mylist?memberSeq=${boardList.memberSeq }'/> ">게시물 보기</a>
+								<a href=# onclick="popUpInfo();">회원 정보 보기</a>
+									<script type="text/javascript">
+										function popUpInfo(){
+										let url = "${pageContext.request.contextPath}/member/popup?memberSeq=${boardList.memberSeq}";
+										let name = "Member 정보";
+										let specs = "height=300, width= 250, status = no, location= no, top=100, left=100";
+										window.open(url, name, specs);}
+									</script>
+								
+							</div>
+						</div>
+					</c:if></td>
+					
 				<td>${boardList.boardRegday}</td>
 				<td>${boardList.boardLike}</td>
 				<td>${boardList.boardCount}</td>
@@ -94,7 +110,13 @@
 					<img id="heart" src="" height="30px">
 				</a>
 			</div>
-
+				<script type="text/javascript">
+					function popUpInfo(){
+						let url = "${pageContext.request.contextPath}/member/popup?memberSeq=${boardlist.memberSeq}";
+						let name = "Member 정보";
+						let specs = "height=300, width= 250, status = no, location= no, top=100, left=100";
+						window.open(url, name, specs);}
+				</script>
 
 
 
