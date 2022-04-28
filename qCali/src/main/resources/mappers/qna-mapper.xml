@@ -48,7 +48,8 @@
 
 	<update id="qnaDelete" parameterType="Long">
 		UPDATE qna set QNA_TITLE =
-		'none' and QNA_CONTENT = 'none' where QNA_SEQ = #{qnaSeq}
+		'none', QNA_CONTENT = 'none'
+		 where QNA_SEQ = #{qnaSeq}
 	</update>
 
 	<update id="qnaReadCount" parameterType="Long">

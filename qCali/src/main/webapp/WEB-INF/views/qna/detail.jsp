@@ -75,19 +75,17 @@
 	</c:if>
 
 
-	<script>
-		function deleteConfirm() {
-			if (!confirm("정말 삭제하시겠습니까?")) {
-				return false;
-			} else {
-				location.href = "<c:url value='/qna/delete?qnaSeq='/>" + $
-				{
-					vo.qnaSeq
-				}
-				;
-			}
+<script>
+	function deleteConfirm(){
+		if(!confirm("정말 삭제하시겠습니까?")){
+			return false;
 		}
-	</script>
+		else{
+			location.href="<c:url value='/qna/delete?qnaSeq='/>"+${vo.qnaSeq};
+		}
+	}
+</script>
+
 
 </body>
 </html>

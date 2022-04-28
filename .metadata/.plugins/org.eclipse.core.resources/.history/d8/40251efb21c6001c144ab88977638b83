@@ -1,0 +1,5 @@
+package com.group.exam.member.command;
+
+public class MemberConfirmPwdCommand {
+
+}

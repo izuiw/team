@@ -28,6 +28,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.group.exam.admin.command.AdminAuthInfoCommand;
+import com.group.exam.member.command.LoginCommand;
 import com.group.exam.qna.command.RegistCommand;
 import com.group.exam.qna.service.QnaService;
 import com.group.exam.qna.vo.QnaVo;
@@ -74,19 +75,16 @@ public class QnaController {
 	@RequestMapping(value="/write", method=RequestMethod.POST)
 	public String insert(@ModelAttribute RegistCommand registCommand, HttpSession session, HttpServletRequest request) {
 		AdminAuthInfoCommand adminSession = (AdminAuthInfoCommand) session.getAttribute("adminAuthInfoCommand");
-//		MemberLoginCommand memberSession = (MemberLoginCommand) session.getAttribute("memberLogin");
+		LoginCommand memberSession = (LoginCommand) session.getAttribute("memberLogin");
 		QnaVo vo = new QnaVo();
 
 		System.out.println(registCommand);
 		if(adminSession != null) {
 			vo.setQnaWriter(adminSession.getAdminNickname());
 
-		}else {
-			
+		}else if(memberSession != null){
+		vo.setMemberSeq(memberSession.getMemberSeq());
 		}
-//		else if(memberSession != null){
-//		vo.setMemberSeq(memberSession.getMemberSeq());
-//		}
 		
 		MultipartFile uploadfile = registCommand.getUploadfile();
 		if(!uploadfile.isEmpty()) {
@@ -225,7 +223,7 @@ public class QnaController {
 		qnaService.qnaReplyInsert(vo);
 		return "redirect:list";
 	}
-	@RequestMapping(value = "/qna/fileupload", method = RequestMethod.POST)
+	@RequestMapping(value = "/fileupload", method = RequestMethod.POST)
 	public void fileupload(HttpServletRequest request, HttpServletResponse response, 
 			@RequestParam MultipartFile upload)
 			throws Exception {

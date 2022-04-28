@@ -77,8 +77,8 @@
 	</select>
 	
 	<insert id="questionAdd" parameterType="com.group.exam.question.vo.QuestionVo">
-		INSERT INTO QUESTION(QUESTION_SEQ, QUESTION_CONTENT, MEMBER_SEQ)
-		VALUES (Q_SEQ.nextval, #{questionContent}, -1)
+		INSERT INTO QUESTION(QUESTION_SEQ, QUESTION_CONTEN)
+		VALUES (Q_SEQ.nextval, #{questionContent})
 	</insert>
 	
 	<select id="adminboardList" resultType="com.group.exam.admin.command.AdminBoardCommand" parameterType="com.group.exam.utils.Criteria">
