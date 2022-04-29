@@ -28,7 +28,12 @@
 	</insert>
 	
 	<select id="currentBoardSeq" resultType="Long">
-		select b_seq.currval from dual
+		select B_SEQ.currval from dual 
+		
+		<!--  SELECT  LAST_NUMBER-1
+	 FROM    USER_SEQUENCES
+	 WHERE  SEQUENCE_NAME = 'B_SEQ'-->
+
 	</select>
 	
 

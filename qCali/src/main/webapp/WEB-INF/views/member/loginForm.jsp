@@ -16,6 +16,16 @@ table {
 	height: 150px;
 }
 </style>
+
+  <script>
+        function findPwd_popup(){
+            var url = '${pageContext.request.contextPath}/member/findPwd';
+            var name = "비밀번호 찾기";
+            var option = "width = 500, height = 500, top = 100, left = 200, location = no"
+            window.open(url, name, option);
+            
+        }
+  </script>
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <meta charset="UTF-8">
 <title>로그인</title>
@@ -44,8 +54,9 @@ table {
 		<input type="submit" value="로그인" />
 
 	</form:form>
+	
 
-	<a href="<c:url value='/member/findPwd'/>"><button>비밀번호 찾기</button></a>
+	<a href="#" onclick="findPwd_popup()" target = "_blank"><button>비밀번호 찾기</button></a>
 	<a href="<c:url value='/member/insert'/>"><button>회원가입</button></a>
 	<!--네이버 로그인 추가-->
 	<br>
