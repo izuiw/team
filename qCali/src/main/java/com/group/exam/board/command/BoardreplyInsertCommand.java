@@ -2,11 +2,9 @@ package com.group.exam.board.command;
 
 public class BoardreplyInsertCommand {
 
-	
 	private Long boardSeq;
 	private String replyContent;
-	
-	
+	private Long memberSeq;
 	public Long getBoardSeq() {
 		return boardSeq;
 	}
@@ -19,12 +17,13 @@ public class BoardreplyInsertCommand {
 	public void setReplyContent(String replyContent) {
 		this.replyContent = replyContent;
 	}
-	@Override
-	public String toString() {
-		return "BoardreplyInsertCommand [boardSeq=" + boardSeq + ", replyContent=" + replyContent + "]";
+	public Long getMemberSeq() {
+		return memberSeq;
+	}
+	public void setMemberSeq(Long memberSeq) {
+		this.memberSeq = memberSeq;
 	}
 
-	
 	
 	
 }

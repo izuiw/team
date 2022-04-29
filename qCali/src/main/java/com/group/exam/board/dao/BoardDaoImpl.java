@@ -156,41 +156,6 @@ public class BoardDaoImpl implements BoardDao {
 	}
 
 	@Override
-	public List<ReplyVo> replySelect(Long boardSeq) {
-		// TODO Auto-generated method stub
-		return sqlSessionTemplate.selectList("replySelect", boardSeq);
-		// 게시글에 맞춰서 댓글 리스트 띄우기
-	}
-
-	@Override
-	public int replyCount(Long boardSeq) {
-		// TODO Auto-generated method stub
-		return sqlSessionTemplate.selectOne("replyCount", boardSeq);
-		// 댓글 갯수 카운트;
-	}
-
-	@Override
-	public void replyInsert(ReplyVo replyVo) {
-		// TODO Auto-generated method stub
-		sqlSessionTemplate.insert("replyInsert", replyVo);
-		// 댓글 쓰기
-	}
-
-	@Override
-	public void replyUpdate(ReplyVo replyVo) {
-		// TODO Auto-generated method stub
-		sqlSessionTemplate.update("replyUpdate", replyVo);
-		// 댓글 수정
-	}
-
-	@Override
-	public void replyDelete(Long replySeq) {
-		// TODO Auto-generated method stub
-		sqlSessionTemplate.delete("replyDelete", replySeq);
-		// 댓글 삭제
-	}
-
-	@Override
 	public List<NoticeAdminVo> noticelist() {
 		// TODO Auto-generated method stub
 		return sqlSessionTemplate.selectList("noticeSelectInMain");
@@ -206,5 +171,37 @@ public class BoardDaoImpl implements BoardDao {
 	public int boardSearchCount(HashMap<String, Object> map) {
 		// TODO Auto-generated method stub
 		return sqlSessionTemplate.selectOne("boardSearchCount", map);
+	}
+
+	// 댓글 관련
+	@Override
+	public List<ReplyVo> replyList(Long boardSeq) {
+		return sqlSessionTemplate.selectList("replyList", boardSeq);
+		// 게시글에 맞춰서 댓글 리스트 띄우기
+	}
+
+	@Override
+	public int replyCount(Long boardSeq) {
+		return sqlSessionTemplate.selectOne("replyCount", boardSeq);
+		// 댓글 갯수 카운트
+	}
+
+	@Override
+	public void replyInsert(ReplyVo replyVo) {
+
+		sqlSessionTemplate.insert("replyInsert", replyVo);
+		// 댓글 쓰기
+	}
+
+	@Override
+	public void replyUpdate(ReplyVo replyVo) {
+		sqlSessionTemplate.update("replyUpdate", replyVo);
+		// 댓글 수정
+	}
+
+	@Override
+	public void replyDelete(ReplyVo replyVo) {
+		sqlSessionTemplate.delete("replyDelete", replyVo);
+		// 댓글 삭제
 	}
 }

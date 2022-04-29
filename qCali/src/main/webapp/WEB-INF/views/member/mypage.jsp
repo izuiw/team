@@ -18,15 +18,16 @@ li {
 </style>
     <script>
         function nickname_popup(){
-            var url = "${pageContext.request.contextPath}/member/mypage/changeNickname";
+            var url = '${pageContext.request.contextPath}/member/mypage/changeNickname';
             var name = "nickname_change";
             var option = "width = 500, height = 500, top = 100, left = 200, location = no"
             window.open(url, name, option);
+            
         }
         
         function pwd_popup(){
-            var url = "<c:url value='/member/mypage/changePwd?memberSeq=${memberLogin.memberSeq}'/>";
-            var name = "popup pwd_change";
+            var url = "${pageContext.request.contextPath}/member/mypage/changePwd";
+            var name = "pwd_change";
             var option = "width = 500, height = 500, top = 100, left = 200, location = no"
             window.open(url, name, option);
         }
@@ -65,6 +66,7 @@ li {
 <c:if test="${!empty memberLogin}">
 
 ${memberLogin.memberNickname}님 마이페이지
+
 <table border="1">
 
 	<tr>
@@ -75,10 +77,11 @@ ${memberLogin.memberNickname}님 마이페이지
 		<td>회원 가입 날짜</td> <td>${memberLogin.memberRegDay}</td>
 		<td>생일</td> <td>${memberLogin.memberBirthDay}</td>
 	</tr>
+
 </table>
 		
 		<%-- api 로그인 계정 상태 체크 -> 비밀번호 변경 불가 --%>
-		<c:if test="${memberLogin.naver == F || memberLogin.kakao == F}">
+		<c:if test="${memberLogin.naver eq 'F' && memberLogin.kakao eq 'F'}">
 			<a href="#" onclick="javascript:pwd_popup()" target = "_blank"><button>비밀번호 변경하기</button></a>
 
 		</c:if>

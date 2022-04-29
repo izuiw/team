@@ -111,7 +111,7 @@ public class MemberLoginController {
 			session.setMaxInactiveInterval(60 * 60);
 
 			session.setAttribute("memberLogin", login);
-			return "redirect:/board/list";
+			return "/main";
 
 		} else {
 			System.out.println("비밀번호 불일치 : " + member);
