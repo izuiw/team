@@ -9,7 +9,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
@@ -26,24 +25,17 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.group.exam.board.command.BoardLikeCommand;
 import com.group.exam.board.command.BoardlistCommand;
-import com.group.exam.board.command.BoardreplyInsertCommand;
 import com.group.exam.board.command.BoardupdateCommand;
 import com.group.exam.board.command.QuestionAdayCommand;
 import com.group.exam.board.service.BoardService;
-import com.group.exam.board.vo.BoardHeartVo;
 import com.group.exam.board.vo.BoardVo;
 import com.group.exam.board.vo.NoticeAdminVo;
-import com.group.exam.board.vo.ReplyVo;
 import com.group.exam.calendar.service.CalendarService;
 import com.group.exam.member.command.LoginCommand;
 import com.group.exam.member.service.MemberService;
@@ -53,12 +45,14 @@ import com.group.exam.utils.PagingVo;
 @Controller
 @RequestMapping("/board")
 public class BoardController {
+	
 	private static final Logger logger = LoggerFactory.getLogger(BoardController.class);
 	public static int num;
+	
 	private BoardService boardService;
-	private CalendarService calendarService;
 	private MemberService memberService;
-
+	private CalendarService calendarService;
+	
 	@Autowired
 	public BoardController(BoardService boardService, MemberService memberService, CalendarService calendarService) {
 		this.calendarService = calendarService;
@@ -227,13 +221,12 @@ public class BoardController {
 
 		model.addAttribute("boardQuestion", question);
 		System.out.println(question);
-		
-		//공지사항
+
+		// 공지사항
 		List<NoticeAdminVo> notice = boardService.noticelist();
 		System.out.println(notice);
 		model.addAttribute("notice", notice);
-		
-		
+
 		return "board/list";
 	}
 
@@ -241,149 +234,6 @@ public class BoardController {
 	public void getSequence() {
 		logger.info(new Date() + "스케쥴러 실행");
 		num = boardService.getSequence();
-	}
-
-	// 해당list 내 글 모아보기
-	@GetMapping(value = "/mylist")
-	public String boardListMy(@RequestParam("memberSeq") Long memberSeq, Model model, Criteria cri,
-			HttpSession session) {
-
-		int total = boardService.mylistCount(memberSeq);
-
-		List<BoardlistCommand> list = boardService.boardMyList(cri, memberSeq);
-		model.addAttribute("boardList", list);
-
-		PagingVo pageCommand = new PagingVo();
-		pageCommand.setCri(cri);
-		pageCommand.setTotalCount(total);
-		model.addAttribute("boardTotal", total);
-		model.addAttribute("pageMaker", pageCommand);
-
-		return "board/mylist";
-	}
-
-	// 게시글 디테일
-	@GetMapping(value = "/detail")
-	public String boardListDetail(@RequestParam Long boardSeq, Model model, HttpSession session) {
-
-		boardService.boardCountup(boardSeq);
-
-		BoardlistCommand list = boardService.boardListDetail(boardSeq);
-		boolean myArticle = false;
-		// 세션 값 loginMember에 저장
-
-		LoginCommand loginMember = (LoginCommand) session.getAttribute("memberLogin");
-
-		if (loginMember != null) {
-			// 세션에서 멤버의 mSeq 를 boardVo에 셋팅
-			Long memberSeq = loginMember.getMemberSeq();
-			// 세션에 저장된 mSeq와 게시글의 mSeq를 비교하여 내 글이면 수정 삭제 버튼이 뜨게
-			if (memberSeq == list.getMemberSeq()) {
-				myArticle = true;
-			}
-
-			model.addAttribute("myArticle", myArticle);
-		}
-		
-
-		model.addAttribute("boardList", list);
-		model.addAttribute("boardSeq", boardSeq);
-		
-
-		BoardHeartVo likeVo = new BoardHeartVo();
-
-		likeVo.setBoardSeq(boardSeq);
-		likeVo.setMemberSeq(loginMember.getMemberSeq());
-
-		int boardlike = boardService.getBoardLike(likeVo);
-
-		model.addAttribute("boardHeart", boardlike);
-
-		return "board/listDetail";
-	}
-
-	@PostMapping(value = "/heart", produces = "application/json")
-	@ResponseBody
-	public int boardLike(@RequestBody BoardLikeCommand command, HttpSession session) {
-
-		LoginCommand loginMember = (LoginCommand) session.getAttribute("memberLogin");
-
-		BoardHeartVo likeVo = new BoardHeartVo();
-
-		likeVo.setBoardSeq(command.getBoardSeq());
-		likeVo.setMemberSeq(loginMember.getMemberSeq());
-
-		if (command.getHeart() >= 1) {
-			boardService.deleteBoardLike(likeVo);
-			command.setHeart(0);
-		} else {
-
-			boardService.insertBoardLike(likeVo);
-			command.setHeart(1);
-		}
-
-		// String result = Integer.toString(heart);
-
-		return command.getHeart();
-
-	}
-
-	
-	//댓글 list
-	@PostMapping(value = "/reply/{boardSeq}")	
-	@ResponseBody
-	public List<ReplyVo> boardReply(@PathVariable Long boardSeq, HttpSession session, Model model) {
-		List<ReplyVo> replyList = boardService.replyList(boardSeq);
-		//logger.info(replyList.toString());
-		return replyList;
-	}
-	
-	
-	//댓글 insert
-		@PostMapping(value = "/replyInsert", produces = "application/json")	
-		@ResponseBody
-		public void replyInsert(@RequestBody BoardreplyInsertCommand command, HttpSession session) {
-			LoginCommand loginMember = (LoginCommand) session.getAttribute("memberLogin");
-			
-			ReplyVo insertReply = new ReplyVo();
-			insertReply.setBoardSeq(command.getBoardSeq());
-			insertReply.setMemberSeq(loginMember.getMemberSeq());
-			insertReply.setReplyContent(command.getReplyContent());
-			
-			boardService.replyInsert(insertReply);
-		}
-	
-		
-	//댓글 update
-	@PostMapping(value = "/replyUpdate/{replySeq}", produces = "application/json")
-	@ResponseBody
-	public Map<String, Object> replyUpdate(@RequestBody BoardreplyInsertCommand command, @PathVariable Long replySeq) {
-		Map<String, Object> map = new HashMap<String, Object>();
-		
-		ReplyVo updateReply = new ReplyVo();
-		updateReply.setReplySeq(replySeq);
-		updateReply.setReplyContent(command.getReplyContent());
-
-		boardService.replyUpdate(updateReply);
-		map.put("result", "success");
-		
-		return map;	
-	}
-
-	
-	//댓글 delete
-	@PostMapping(value = "/replydelete/{replySeq}", produces = "application/json")
-	@ResponseBody
-	public Map<String, Object> replyDelete(@PathVariable Long replySeq) {
-		Map<String, Object> map = new HashMap<String, Object>();
-
-		ReplyVo deleteReply = new ReplyVo();
-		deleteReply.setReplySeq(replySeq);
-	
-		boardService.replyDelete(deleteReply);
-		map.put("result", "success");
-		
-		return map;
 	}
 
 	// 게시글 수정
@@ -443,6 +293,25 @@ public class BoardController {
 		}
 
 		return "redirect:/board/list";
+	}
+	
+	// 해당list 내 글 모아보기
+	@GetMapping(value = "/mylist")
+	public String boardListMy(@RequestParam("memberSeq") Long memberSeq, Model model, Criteria cri,
+			HttpSession session) {
+
+		int total = boardService.mylistCount(memberSeq);
+
+		List<BoardlistCommand> list = boardService.boardMyList(cri, memberSeq);
+		model.addAttribute("boardList", list);
+
+		PagingVo pageCommand = new PagingVo();
+		pageCommand.setCri(cri);
+		pageCommand.setTotalCount(total);
+		model.addAttribute("boardTotal", total);
+		model.addAttribute("pageMaker", pageCommand);
+
+		return "board/mylist";
 	}
 
 	// 닉네임 , 제목으로 검색

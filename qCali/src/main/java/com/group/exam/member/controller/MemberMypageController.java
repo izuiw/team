@@ -22,9 +22,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.group.exam.board.command.BoardlistCommand;
 import com.group.exam.board.service.BoardService;
 import com.group.exam.member.command.LoginCommand;
-import com.group.exam.member.command.MemberFindPwdCommand;
 import com.group.exam.member.command.MemberchangePwd;
-import com.group.exam.member.service.MailSendService;
 import com.group.exam.member.service.MemberService;
 import com.group.exam.utils.Criteria;
 import com.group.exam.utils.PagingVo;
@@ -117,26 +115,22 @@ public class MemberMypageController {
 
 	// 비밀번호 변경
 	@GetMapping(value = "changePwd")
-	public String changePwd(@ModelAttribute("changepwdData") MemberchangePwd changepwdData, HttpSession session) {
-		
+	public String changePwd() {
 		return "/member/changePwdForm";
 	}
 	
 	@ResponseBody
-	@PostMapping(value = "changePwd")
-	public String changePwd(@Valid @ModelAttribute("changepwdData") MemberchangePwd changepwdData,
-			BindingResult bindingResult, HttpSession session, Model model) {
-
-		if (bindingResult.hasErrors()) {
-			return "/member/changePwdForm";
-		}
-
+	@RequestMapping(value = "/changePwd", produces="application/json", method=RequestMethod.POST)
+	public boolean changePwd(@RequestBody MemberchangePwd changepwdData, HttpSession session) {
+		
+		boolean result = false;
+		
 		// 비밀번호-비밀번호 확인 check
 		boolean pwdcheck = changepwdData.getMemberPassword().equals(changepwdData.getMemberPasswordCheck());
 
 		if (pwdcheck != true) {
 
-			return "/member/changePwdForm";
+			return result;
 		}
 
 		LoginCommand command = (LoginCommand) session.getAttribute("memberLogin");
@@ -146,9 +140,8 @@ public class MemberMypageController {
 		boolean pwdEncode = passwordEncoder.matches(changepwdData.getMemberPassword(), encodePassword);
 
 		if (pwdEncode) {
-
-			model.addAttribute("msg", "기존 비밀번호와 동일합니다.");
-			return "/member/changePwdForm";
+			
+			return result;
 		}
 
 		// 기존 비밀번호와 같은지 체크
@@ -158,25 +151,21 @@ public class MemberMypageController {
 		pwdEncode = passwordEncoder.matches(changepwdData.getMemberPassword(), encodePassword);
 
 		if (pwdEncode) {
-			model.addAttribute("msg", "기존 비밀번호와 동일합니다.");
-			return "/member/changePwdForm";
+			
+			return result;
 		}
-
+		
 		String updateEncodePassword = passwordEncoder.encode(changepwdData.getMemberPassword());
 
-		int result = memberService.updateMemberPwd(updateEncodePassword, command.getMemberSeq());
-
-		if (result != 1) {
-			System.out.println("비밀번호 변경 실패");
-			return "/errors/mypageChangeError";
-		}
+		memberService.updateMemberPwd(updateEncodePassword, command.getMemberSeq());
 
 		// 세션 로그인 정보
 		LoginCommand login = memberService.login(command.getMemberId());
 
 		session.setAttribute("memberLogin", login);
-
-		return "/member/member_alert/changeNext";
+		result = true;
+		
+		return result;
 	}
 
 	// 닉네임 변경
@@ -186,22 +175,15 @@ public class MemberMypageController {
 		return "/member/changeNicknameForm";
 	}
 
-	@PostMapping(value = "/changeNickname", produces = "application/json")
+	@PostMapping(value = "/changeNickname")
 	@ResponseBody
 	public void changeNickname(@RequestBody String memberNickname, HttpSession session,
 			Model model) {
 
 		LoginCommand command = (LoginCommand) session.getAttribute("memberLogin");
+			
+		memberService.updateMemberNickname(memberNickname, command.getMemberSeq());
 		
-	
-		System.out.println("닉네임 변경 post \t" + memberNickname);
-		
-		int result = memberService.updateMemberNickname(memberNickname, command.getMemberSeq());
-		
-		if (result != 1) {
-			System.out.println("닉네임 변경 실패");
-	
-		}
 
 		// 세션 로그인 정보
 		LoginCommand login = memberService.login(command.getMemberId());
@@ -229,12 +211,8 @@ public class MemberMypageController {
 
 		if (pwdEncode) {
 
-			int result = memberService.deleteMember(command.getMemberSeq());
+		    memberService.deleteMember(command.getMemberSeq());
 
-			if (result != 1) {
-				System.out.println("회원 탈퇴 실패");
-				return "errors/mypageChangeError";
-			}
 
 			session.invalidate(); // 탈퇴 성공시, 로그인 세션 제거
 

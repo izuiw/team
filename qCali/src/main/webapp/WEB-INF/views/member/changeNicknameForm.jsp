@@ -26,10 +26,10 @@
 	                	document.getElementById('nickSame').innerHTML='사용할 수 없는 닉네임 입니다.';
 				        document.getElementById('nickSame').style.color='red';
 	                } else if (data == 0) {
-	                	console.log("닉네임 중복 확인"  + memberNickname);
+	                	
 	                	document.getElementById('nickSame').innerHTML='사용 가능한 닉네임 입니다.';
 			            document.getElementById('nickSame').style.color='blue';
-			            submitFlag = true
+			            submitFlag = true;
 	                }
 	                doSignUp();
 	            }
@@ -60,7 +60,6 @@
 			<input type="text" id="memberNickname" />
 			
 			<button type="button" onclick="nickCheck()">중복확인</button>
-			${msg}
 			<span id="nickSame"></span>
 			</td>
 		</tr>

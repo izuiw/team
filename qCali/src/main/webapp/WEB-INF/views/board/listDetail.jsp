@@ -165,6 +165,7 @@
 	<script>
 		$(document).ready(function() {
 			var heartval = ${boardHeart};
+			
 			if (heartval > 0) {
 				console.log(heartval);
 			    $("#heart").prop("src", '<c:url value="/resources"/>'+"/static/images/like2.png");
@@ -189,7 +190,7 @@
 					success : function(data) {
 						that.prop('name', data);
 						console.log("success:" + that.prop('name', data));
-// 						location.reload();
+				
 						if (data == 1) {
 							 $('#heart').prop("src",'<c:url value="/resources"/>'+"/static/images/like2.png");
 						} else {

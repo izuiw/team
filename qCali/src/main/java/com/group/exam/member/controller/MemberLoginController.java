@@ -1,5 +1,8 @@
 package com.group.exam.member.controller;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
@@ -9,11 +12,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.group.exam.member.command.LoginCommand;
-import com.group.exam.member.command.MemberFindPwdCommand;
 import com.group.exam.member.command.NaverLoginBO;
 import com.group.exam.member.service.MailSendService;
 import com.group.exam.member.service.MemberService;
@@ -124,36 +128,30 @@ public class MemberLoginController {
 	}
 
 	@RequestMapping(value = "/member/findPwd", method = RequestMethod.GET)
-	public String findPwd(@ModelAttribute("findPwdData") MemberFindPwdCommand findcommand) {
+	public String findPwd() {
 
 		return "member/findPwdForm";
 	}
-
-	@RequestMapping(value = "/member/findPwd", method = RequestMethod.POST)
-	public String findPwd(@Valid @ModelAttribute("findPwdData") MemberFindPwdCommand findcommand,
-			BindingResult bindingResult, Model model) {
-
-		if (bindingResult.hasErrors()) {
-			return "member/findPwdForm";
-		}
-
-		LoginCommand findMember = memberService.findPwd(findcommand.getMemberId());
-
+	
+	
+	@RequestMapping(value = "/member/findPwd", produces="application/json", method=RequestMethod.POST)
+	@ResponseBody
+	public boolean findPwd(@RequestBody String memberId) {
+		boolean result = false;
+		
+		LoginCommand findMember = memberService.findPwd(memberId);
+		
 		if (findMember != null) {
-			String tmpPwd = mss.sendPwdMail(findcommand.getMemberId()); // 임시 비밀번호 메일 발송
+			String tmpPwd = mss.sendPwdMail(memberId); // 임시 비밀번호 메일 발송
 			String encodePwd = passwordEncoder.encode(tmpPwd); // 임시 비밀번호 암호화
 
-			int result = memberService.updateTmpPwd(encodePwd, findcommand.getMemberId()); // db에 해당 회원 비밀번호 임시 비밀번호로 변경
-
-			if (result == 1) {
-				// 임시 비밀번호로 변경 성공
-				return "member/member_alert/findPwdNext";
-			}
-
+			memberService.updateTmpPwd(encodePwd, memberId); // db에 해당 회원 비밀번호 임시 비밀번호로 변경
+	
+			result = true;
+			return result;
 		}
-
-		model.addAttribute("msg", "해당 회원 정보가 없습니다.");
-		return "member/findPwdForm";
+		
+		return result;	
 	}
 
 }
