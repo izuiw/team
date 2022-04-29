@@ -42,7 +42,7 @@
 	<delete id="questionDelete" parameterType="Long">
 		DELETE FROM QUESTION WHERE QUESTION_SEQ = #{questionSeq}
 	</delete>
-	<select id="countQuestionList" resultType="Long">
+	<select id="countQuestionList" resultType="Integer">
 		<![CDATA[
 			select count(*) FROM question where QUESTION_STATUS = 'T'
 		]]>
@@ -61,10 +61,11 @@
 		ORDER BY QUESTION_SEQ 
 		 ]]>
 	</select>
-	<select id="questionListAll" parameterType="com.group.exam.utils.Criteria" resultType="com.group.exam.admin.command.AdminQuestionMember">
+	<select id="questionListAll" parameterType="com.group.exam.utils.Criteria" 
+	resultType="com.group.exam.admin.command.AdminQuestionMember">
 		<![CDATA[
 		select * from
-		(select * from rownum as no, question_seq, question_content, member_nickname, member_seq from
+		(select rownum as no, question_seq, question_content, member_nickname, member_seq from
 		(select Q.QUESTION_SEQ, Q.QUESTION_CONTENT, M.MEMBER_NICKNAME, M.MEMBER_SEQ
 		from MEMBER M
 		right join
