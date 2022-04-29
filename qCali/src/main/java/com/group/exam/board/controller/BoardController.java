@@ -9,6 +9,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
@@ -25,6 +26,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -326,31 +328,62 @@ public class BoardController {
 
 	}
 
-	// 댓글 insert ajax
-	@PostMapping(value = "/reply", produces = "application/json")
+	
+	//댓글 list
+	@PostMapping(value = "/reply/{boardSeq}")	
 	@ResponseBody
-	public List<ReplyVo> boardReply(@RequestBody BoardreplyInsertCommand command, HttpSession session, Model model) {
-
-		LoginCommand loginMember = (LoginCommand) session.getAttribute("memberLogin");
-
-		// 댓글 입력 값이 있을 떄 (클릭 시)
-		if (command.getReplyContent() != null) {
-			ReplyVo replyVo = new ReplyVo();
-
-			replyVo.setBoardSeq(command.getBoardSeq());
-			replyVo.setMemberSeq(loginMember.getMemberSeq());
-			replyVo.setMemberNickname(loginMember.getMemberNickname());
-			replyVo.setReplyRegDay(replyVo.getReplyRegDay());
-			replyVo.setReplyContent(command.getReplyContent());
-
-			boardService.replyInsert(replyVo);
+	public List<ReplyVo> boardReply(@PathVariable Long boardSeq, HttpSession session, Model model) {
+		List<ReplyVo> replyList = boardService.replyList(boardSeq);
+		//logger.info(replyList.toString());
+		return replyList;
+	}
+	
+	
+	//댓글 insert
+		@PostMapping(value = "/replyInsert", produces = "application/json")	
+		@ResponseBody
+		public void replyInsert(@RequestBody BoardreplyInsertCommand command, HttpSession session) {
+			LoginCommand loginMember = (LoginCommand) session.getAttribute("memberLogin");
+			
+			ReplyVo insertReply = new ReplyVo();
+			insertReply.setBoardSeq(command.getBoardSeq());
+			insertReply.setMemberSeq(loginMember.getMemberSeq());
+			insertReply.setReplyContent(command.getReplyContent());
+			
+			boardService.replyInsert(insertReply);
 		}
+	
+		
+	//댓글 update
+	@PostMapping(value = "/replyUpdate/{replySeq}", produces = "application/json")
+	@ResponseBody
+	public Map<String, Object> replyUpdate(@RequestBody BoardreplyInsertCommand command, @PathVariable Long replySeq) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		ReplyVo updateReply = new ReplyVo();
+		updateReply.setReplySeq(replySeq);
+		updateReply.setReplyContent(command.getReplyContent());
 
-		List<ReplyVo> replySelect = boardService.replySelect(command.getBoardSeq());
-		// model.addAttribute("replySelect", replySelect);
-		System.out.println("댓글 리스트 : " + replySelect);
+		boardService.replyUpdate(updateReply);
+		map.put("result", "success");
+		
+		return map;	
+	}
 
-		return replySelect;
+	
+	//댓글 delete
+	@PostMapping(value = "/replydelete/{replySeq}", produces = "application/json")
+	@ResponseBody
+	public Map<String, Object> replyDelete(@PathVariable Long replySeq) {
+		Map<String, Object> map = new HashMap<String, Object>();
+
+		ReplyVo deleteReply = new ReplyVo();
+		deleteReply.setReplySeq(replySeq);
+	
+		boardService.replyDelete(deleteReply);
+		map.put("result", "success");
+		
+		return map;
 	}
 
 	// 게시글 수정
