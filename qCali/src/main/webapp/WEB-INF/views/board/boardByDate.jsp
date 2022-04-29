@@ -51,7 +51,7 @@
 						let name = "Member 정보";
 						let specs = "height=300, width= 250, status = no, location= no, top=100, left=100";
 						window.open(url, name, specs);}
-						</script>\
+						</script>
 				
 				
 				

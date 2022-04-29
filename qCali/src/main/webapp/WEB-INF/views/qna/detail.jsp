@@ -27,9 +27,17 @@
 							<a class="dropbtn">${ list.memberNickname}</a>
 							<div class="dropdown-content">
 								<a href="<c:url value='/board/mylist/memberSeq=${list.memberSeq }'/> ">게시물 보기</a> 
-								<a href="<c:url value='/board/'/> ">회원 정보 보기</a>
+								<a href=# onclick="popUpInfo();">회원 정보 보기</a>
 							</div>
 						</div></td>
+				<script type="text/javascript">
+					function popUpInfo(){
+						let url = "${pageContext.request.contextPath}/member/popup?memberSeq=${b.memberSeq}";
+						let name = "Member 정보";
+						let specs = "height=300, width= 250, status = no, location= no, top=100, left=100";
+						window.open(url, name, specs);}
+				</script>
+						
 				</c:if>
 				<c:if test="${empty vo.memberSeq}">
 					<td>탈퇴한 회원</td>

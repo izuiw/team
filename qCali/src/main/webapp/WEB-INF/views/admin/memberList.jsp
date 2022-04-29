@@ -10,6 +10,8 @@
 </head>
 
 <body>
+	<jsp:include page="/WEB-INF/views/admin/main/adminHeader.jsp"></jsp:include>
+
 	<table border="1">
 		<tr>
 		<th>아이디</th>

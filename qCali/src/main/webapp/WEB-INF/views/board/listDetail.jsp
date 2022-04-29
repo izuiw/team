@@ -10,8 +10,17 @@
 
 <meta charset="UTF-8">
 <title>Insert title here</title>
-
-</head>
+	<style>
+		#reply{
+			display: block;
+			width:400px;
+			border-bottom : 1px solid black;
+		}
+		#reply_content{
+			border : 1px solid black;
+		}
+	</style>
+</head>	
 <body>
 
 
@@ -217,19 +226,25 @@
 						
 					} else {
 						$(result).each(function() {
+							htmls += '<div id="reply">'
 							htmls += '<div id="replySeq'+this.replySeq+'">';
-							htmls += '<strong>';
-							htmls += '작성자 : ' + this.memberNickname;
-							htmls += '</strong>&nbsp;&nbsp;&nbsp;&nbsp;';
+							htmls += '<br>작성자 : ' + '<div class = "dropdown"> '
+							htmls += '<a href="#" class="dropbtn">'+ this.memberNickname;
+							htmls += '</a> <div class="dropdown-content">'
+							htmls += '<a href="${pageContext.request.contextPath}/board/mylist?memberSeq='+this.memberSeq +'">게시물 보기</a>'
+							htmls += '<a href="#" onclick ="popUpInfo();">회원 정보 보기</a>'
+							htmls += '</div></div>'
+							htmls += '&nbsp;&nbsp;&nbsp;&nbsp;';
 							htmls += '작성 날짜 : ' + this.replyRegDay;
 							htmls += '<br/><p>';
-							htmls += '댓글 내용 : &nbsp;&nbsp;' + this.replyContent;
-							htmls += '</p><br/>';
+							htmls += '댓글 내용 : &nbsp;&nbsp; <div id="reply_content">' + this.replyContent;
+							htmls += '</div></p>';
 							if(memberSeq ==  this.memberSeq){
 							htmls += '<button type="button" class="btn btn-outline-success" onclick="updateviewBtn(\'' + this.replySeq + '\', \'' + this.replyContent + '\', \''+ this.memberNickname + '\')">수정</button>&nbsp;&nbsp;';
 							htmls += '<button type="button" class="btn btn-outline-success" onclick="replyDeleteConfirm(\'' + this.replySeq + '\')">삭제</button>';
 							}
 							htmls += '</div><br/>';
+							htmls += '</div>'
 						});
 					};
 						$("#replyList").html(htmls);

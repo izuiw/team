@@ -19,6 +19,8 @@
 	}
 </script>
 <body>
+	<jsp:include page="/WEB-INF/views/admin/main/adminHeader.jsp"></jsp:include>
+
 	<h3>질문 : ${boards. questionContent}</h3>
 	<table border="1">
 		<tr>
