@@ -9,6 +9,8 @@
 <title>Insert title here</title>
 </head>
 <body>
+	<jsp:include page="/WEB-INF/views/admin/main/adminHeader.jsp"></jsp:include>
+
 Main페이지
  <c:if test= "${adminAuthInfoCommand == null }">
 	<a href="<c:url value='/admin/login'/> ">로그인 하기</a> 

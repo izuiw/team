@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>질문 리스트</title>
+<title>QCali :: 질문</title>
 	<script>
 	function nullCheck(){
 		if(questionAdd.questionContent.value==""){
@@ -19,6 +19,8 @@
 	</script>
 </head>
 <body>
+	<jsp:include page="/WEB-INF/views/admin/main/adminHeader.jsp"></jsp:include>
+
 	<h2>질문 추가하기</h2>
 	<form:form action="${pageContext.request.contextPath}/admin/question/questionAdd" name ="questionAdd" commandName="questionRegistCommand" onsubmit="return nullCheck()">
 		<form:input path="questionContent" placeholder="추가할 질문을 입력해주세요." id="questionContent"/>

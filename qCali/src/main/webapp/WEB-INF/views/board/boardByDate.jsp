@@ -38,7 +38,7 @@
 			</c:when>
 			<c:otherwise>
 			<td><div class="dropdown">
-					<button class="dropbtn">${ b.memberNickname}</button>
+					<a href="#" class="dropbtn">${ b.memberNickname}</a>
 					<div class="dropdown-content">
 						<a href="<c:url value='/board/mylist?memberSeq=${b.memberSeq }'/> ">게시물 보기</a>
 						<a href=# onclick="popUpInfo();">회원 정보 보기</a>
@@ -51,7 +51,7 @@
 						let name = "Member 정보";
 						let specs = "height=300, width= 250, status = no, location= no, top=100, left=100";
 						window.open(url, name, specs);}
-						</script>\
+						</script>
 				
 				
 				

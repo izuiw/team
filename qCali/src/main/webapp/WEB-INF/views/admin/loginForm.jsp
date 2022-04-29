@@ -10,6 +10,8 @@
 <title>LoginForm</title>
 </head>
 <body>
+	<jsp:include page="/WEB-INF/views/admin/main/adminHeader.jsp"></jsp:include>
+
 		<form:form commandName = "AdminLoginCommand">
 			<p>
 				<label>

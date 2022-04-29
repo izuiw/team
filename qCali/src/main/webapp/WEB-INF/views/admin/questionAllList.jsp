@@ -9,6 +9,8 @@
 <title>총 질문 리스트</title>
 </head>
 <body>
+	<jsp:include page="/WEB-INF/views/admin/main/adminHeader.jsp"></jsp:include>
+
 	<h3>총 질문 수  : ${questionTotal }</h3>
 	<table border="1">
 		<tr>

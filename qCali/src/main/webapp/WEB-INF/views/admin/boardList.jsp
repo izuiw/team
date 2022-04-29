@@ -9,6 +9,8 @@
 <title>게시물 리스트</title>
 </head>
 <body>
+	<jsp:include page="/WEB-INF/views/admin/main/adminHeader.jsp"></jsp:include>
+
 	<h2>총 게시물 수 : ${boardTotal }</h2>
 	<table border="1">
 		<tr>

@@ -1,11 +1,19 @@
 @charset "UTF-8";
 
-
 .dropdown {
   position: relative;
   display: inline-block;
 }
- 
+.dropbtn{
+	color : black;
+	text-decoration:none;
+}
+a:-webkit-any-link {
+	text-decoration: none;
+	color : black;
+}
+
+
 .dropdown-content {
   display: none;
   position: absolute;
