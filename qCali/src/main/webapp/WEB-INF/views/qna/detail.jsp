@@ -11,7 +11,9 @@
 <title>QNA Detail</title>
 </head>
 <body>
-	<table border="1">
+	<h2>Q&A</h2>
+	<table class="table">
+		<thead>
 		<tr>
 			<th>제목</th>
 			<td colspan="6">${vo.qnaTitle }</td>

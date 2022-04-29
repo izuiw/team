@@ -17,14 +17,20 @@
 
 	
 	<!-- 목록 -->
-	<table class >
+	
+	
+	
+	<table class ="table table-striped" >
+		<thead>
 		<tr>
 			<th>번호</th>
 			<th>제목</th>
 			<th>작성자</th>
-			<th>작성일자</th>
-			<th>첨부파일</th>
+			<th>날짜</th>
+
 		</tr>
+		</thead>
+		<tbody>
 		<c:if test="${boardtotal == 0 }">
 			등록된 글이 없습니다.
 		</c:if>
@@ -89,13 +95,10 @@
 			</c:if>
 			
 			<td>${list.qnaRegDay }</td>
-			<td>
-				<c:if test="${!empty list.qnaFileName }">
-						<img title="${list.qnaFileName }" /> <!-- src="img/attach.png" -->
-				</c:if>
-				</td>
+
 			</tr>
 		</c:forEach>
+		</tbody>
 	</table>
 	
 		<div>

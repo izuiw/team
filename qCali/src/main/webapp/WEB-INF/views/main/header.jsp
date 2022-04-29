@@ -33,6 +33,12 @@
   						<a class="nav-link" href="${pageContext.request.contextPath}/member/mypage/confirmPwd">${memberLogin.memberNickname }님 </a>
   						<a class="nav-link" href="${pageContext.request.contextPath }/member/logout">로그아웃</a>
 					</c:if>     
+	   		  		<c:if test="${!empty adminAuthInfoCommand }">
+	   		  			<span class="navbar-text">
+	   		  				관리자 님
+	   		  			</span>
+  						<a class="nav-link" href="${pageContext.request.contextPath }/member/logout">로그아웃</a>
+					</c:if>
  			     </ul>
    			 </div>
  		 </div>
