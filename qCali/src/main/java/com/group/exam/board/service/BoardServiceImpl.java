@@ -16,81 +16,71 @@ import com.group.exam.board.vo.ReplyVo;
 import com.group.exam.utils.Criteria;
 
 @Service
-public class BoardServiceImpl implements BoardService{
+public class BoardServiceImpl implements BoardService {
 	@Autowired
 	private BoardDao boardDao;
-	
-	public BoardServiceImpl () {
-		
+
+	public BoardServiceImpl() {
+
 	}
-	
 
 	@Override
 	public void insertBoard(BoardVo boardVo) {
 		// TODO Auto-generated method stub
-	
+
 		boardDao.insertBoard(boardVo);
-		
+
 	}
 
 	@Override
 	public List<BoardlistCommand> boardList(Criteria cri) {
 		// TODO Auto-generated method stub
-		
+
 		return boardDao.boardList(cri);
 	}
-
 
 	@Override
 	public List<BoardlistCommand> boardMyList(Criteria cri, Long memberSeq) {
 		// TODO Auto-generated method stub
 		HashMap<String, Object> map = new HashMap<String, Object>();
-	
+
 		map.put("memberSeq", memberSeq);
 		map.put("rowStart", cri.getRowStart());
 		map.put("rowEnd", cri.getRowEnd());
 		return boardDao.boardMyList(map);
 	}
-	
 
 	@Override
 	public BoardlistCommand boardListDetail(Long boardSeq) {
 		// TODO Auto-generated method stub
 		return boardDao.boardListDetail(boardSeq);
 	}
-	
-
 
 	@Override
 	public void deleteBoardOne(Long boardSeq, Long memberSeq) {
 		// TODO Auto-generated method stub
 		HashMap<String, Long> map = new HashMap<String, Long>();
-		
+
 		map.put("boardSeq", boardSeq);
 		map.put("memberSeq", memberSeq);
 		boardDao.deleteBoardOne(map);
-		
-		
-		
+
 	}
 
-
-	//게시물 조횟수 up
+	// 게시물 조횟수 up
 	@Override
 	public void boardCountup(Long boardSeq) {
 		// TODO Auto-generated method stub
 
 		boardDao.boardCountup(boardSeq);
-		
-	}
 
+	}
 
 	@Override
 	public int listCount() {
 		// TODO Auto-generated method stub
 		return boardDao.listCount();
 	}
-
 
 	@Override
 	public void updateBoard(String boardTitle, String boardContent, Long boardSeq) {
@@ -99,11 +89,10 @@ public class BoardServiceImpl implements BoardService{
 		map.put("boardTitle", boardTitle);
 		map.put("boardContent", boardContent);
 		map.put("boardSeq", boardSeq);
-		
-		boardDao.updateBoard(map);
-		
-	}
 
+		boardDao.updateBoard(map);
+
+	}
 
 	@Override
 	public int mylistCount(Long memberSeq) {
@@ -111,24 +100,21 @@ public class BoardServiceImpl implements BoardService{
 		return boardDao.boardMylistCount(memberSeq);
 	}
 
-
 	@Override
 	public void insertBoardLike(BoardHeartVo vo) {
 		// TODO Auto-generated method stub
 		boardDao.insertBoardLike(vo);
 		boardDao.updateBoardLike(vo.getBoardSeq());
-		
-	}
 
+	}
 
 	@Override
 	public void deleteBoardLike(BoardHeartVo vo) {
 		// TODO Auto-generated method stub
 		boardDao.deleteBoardLike(vo);
 		boardDao.updateBoardLike(vo.getBoardSeq());
-		
-	}
 
+	}
 
 	@Override
 	public int getBoardLike(BoardHeartVo vo) {
@@ -136,27 +122,24 @@ public class BoardServiceImpl implements BoardService{
 		return boardDao.getBoardLike(vo);
 	}
 
-
 	@Override
 	public String memberAuth(Long memberSeq) {
 		// TODO Auto-generated method stub
 		return boardDao.memberAuth(memberSeq);
 	}
 
-
 	@Override
 	public int memberLevelup(Long memberSeq, int mytotal, int memberLevel) {
 		// TODO Auto-generated method stub
 		HashMap<String, Object> map = new HashMap<String, Object>();
-		
+
 		map.put("memberSeq", memberSeq);
 		map.put("mytotal", mytotal);
 		map.put("memberLevel", memberLevel);
-		
-		return boardDao.memberLevelup(map);
-		
-	}
 
+		return boardDao.memberLevelup(map);
+
+	}
 
 	@Override
 	public QuestionAdayCommand questionselect(int num) {
@@ -164,13 +147,11 @@ public class BoardServiceImpl implements BoardService{
 		return boardDao.questionselect(num);
 	}
 
-
 	@Override
 	public int getSequence() {
 		// TODO Auto-generated method stub
 		return boardDao.getSequence();
 	}
-
 
 	@Override
 	public int currentSequence() {
@@ -178,56 +159,11 @@ public class BoardServiceImpl implements BoardService{
 		return boardDao.currentSequence();
 	}
 
-
 	@Override
 	public List<BoardlistCommand> boardSearch(HashMap<String, Object> map) {
 		// TODO Auto-generated method stub
 		return boardDao.boardSearch(map);
 	}
-
-	
-	//댓글 기능 관련
-	@Override
-	public List<ReplyVo> replySelect(Long boardSeq) {
-		// TODO Auto-generated method stub
-		return boardDao.replySelect(boardSeq);
-	}
-
-
-	@Override
-	public void replyInsert(ReplyVo replyVo) {
-		// TODO Auto-generated method stub
-		ReplyVo newreply = new ReplyVo();
-		//newreply.setReplySeq(replywriteCommand.getReplySeq());
-		newreply.setBoardSeq(replyVo.getBoardSeq());
-		newreply.setMemberSeq(replyVo.getMemberSeq());
-		newreply.setReplyContent(replyVo.getReplyContent());
-		
-		boardDao.replyInsert(newreply);
-	}
-
-
-	@Override
-	public void replyUpdate(ReplyVo replyVo) {
-		// TODO Auto-generated method stub
-		ReplyVo updatereply = new ReplyVo();
-		//updatereply.setReplySeq(replyVo.getReplySeq());
-		//updatereply.setBoardSeq(replyVo.getBoardSeq());
-		//updatereply.setMemberSeq(replyVo.getMemberSeq());
-		updatereply.setReplyContent(replyVo.getReplyContent());
-		
-		boardDao.replyUpdate(updatereply);
-		
-	}
-
-
-	@Override
-	public void replyDelete(Long replySeq) {
-		// TODO Auto-generated method stub
-		boardDao.replyDelete(replySeq);
-		
-	}
-
 
 	@Override
 	public List<NoticeAdminVo> noticelist() {
@@ -235,13 +171,11 @@ public class BoardServiceImpl implements BoardService{
 		return boardDao.noticelist();
 	}
 
-
 	@Override
 	public Long currentBoardSeq() {
 		// TODO Auto-generated method stub
 		return boardDao.currentBoardSeq();
 	}
-
 
 	@Override
 	public int boardSearchCount(HashMap<String, Object> map) {
@@ -249,6 +183,30 @@ public class BoardServiceImpl implements BoardService{
 		return boardDao.boardSearchCount(map);
 	}
 
+	// 댓글 기능 관련
+	@Override
+	public List<ReplyVo> replyList(Long boardSeq) {
+		return boardDao.replyList(boardSeq);
+	}
 
+	@Override
+	public void replyInsert(ReplyVo replyVo) {
+		boardDao.replyInsert(replyVo);
+	}
 
+	@Override
+	public void replyUpdate(ReplyVo replyVo) {
+		boardDao.replyUpdate(replyVo);
+	}
+
+	@Override
+	public void replyDelete(ReplyVo replyVo) {
+		boardDao.replyDelete(replyVo);
+	}
+
+	@Override
+	public int replyCount(Long boardSeq) {
+		return boardDao.replyCount(boardSeq);
+
+	}
 }

@@ -121,7 +121,8 @@ public class MemberMypageController {
 		
 		return "/member/changePwdForm";
 	}
-
+	
+	@ResponseBody
 	@PostMapping(value = "changePwd")
 	public String changePwd(@Valid @ModelAttribute("changepwdData") MemberchangePwd changepwdData,
 			BindingResult bindingResult, HttpSession session, Model model) {
@@ -181,33 +182,32 @@ public class MemberMypageController {
 	// 닉네임 변경
 	@GetMapping(value = "/changeNickname")
 	public String changeNickname(HttpSession session) {
-		System.out.println("dddd");
-
+		
 		return "/member/changeNicknameForm";
 	}
 
-	@PostMapping(value = "/changeNickname")
+	@PostMapping(value = "/changeNickname", produces = "application/json")
 	@ResponseBody
-	public String changeNickname(@RequestBody String memberNickname, HttpSession session,
+	public void changeNickname(@RequestBody String memberNickname, HttpSession session,
 			Model model) {
 
 		LoginCommand command = (LoginCommand) session.getAttribute("memberLogin");
 		
 	
-		System.out.println(memberNickname);
+		System.out.println("닉네임 변경 post \t" + memberNickname);
 		
 		int result = memberService.updateMemberNickname(memberNickname, command.getMemberSeq());
 		
 		if (result != 1) {
 			System.out.println("닉네임 변경 실패");
-			return "errors/mypageChangeError";// 에러 페이지
+	
 		}
 
 		// 세션 로그인 정보
 		LoginCommand login = memberService.login(command.getMemberId());
 
 		session.setAttribute("memberLogin", login);
-		return "/member/changeNicknameForm";
+
 
 	}
 

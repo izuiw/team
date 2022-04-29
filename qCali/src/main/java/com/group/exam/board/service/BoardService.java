@@ -13,6 +13,7 @@ import com.group.exam.utils.Criteria;
 
 public interface BoardService {
 	public List<NoticeAdminVo> noticelist();
+
 	public void insertBoard(BoardVo boardVo); // 새 게시글 쓰기
 
 	public List<BoardlistCommand> boardList(Criteria cri); // 게시글 전체 리스트
@@ -36,8 +37,8 @@ public interface BoardService {
 	public int memberLevelup(Long memberSeq, int mytotal, int memberLevel);
 
 	public List<BoardlistCommand> boardSearch(HashMap<String, Object> map);// 닉네임, 제목으로 검색
-	
-	public int boardSearchCount (HashMap<String, Object> map); //서치 게시글 수
+
+	public int boardSearchCount(HashMap<String, Object> map); // 서치 게시글 수
 
 	// 하루마다 질문 출력
 
@@ -55,16 +56,17 @@ public interface BoardService {
 	public int getBoardLike(BoardHeartVo vo);
 
 	// 댓글 기능 관련
-	public List<ReplyVo> replySelect(Long boardSeq); // 게시글에 맞춰서 댓글 리스트 띄우기
+	public List<ReplyVo> replyList(Long boardSeq); // 게시글에 맞춰서 댓글 리스트 띄우기
+
+	public int replyCount(Long boardSeq); // 댓글 카운트
 
 	public void replyInsert(ReplyVo replyVo); // 댓글 쓰기
 
 	public void replyUpdate(ReplyVo replyVo); // 댓글 수정
 
-	public void replyDelete(Long replySeq); // 댓글 삭제
-	
+	public void replyDelete(ReplyVo replyVo); // 댓글 삭제
+
 	// 현재 시퀀스 구하기(insert 뒤에만 적용할 예정이라 current 사용 가능)
 	public Long currentBoardSeq();
-	
 
 }
