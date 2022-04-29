@@ -12,8 +12,8 @@
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/main/header.jsp"></jsp:include>
-	<h3>Q&A</h3>
 	
+<%-- 	<c:if test="${pageContext.request.contextPath}" --%>
 	<!-- 목록 -->
 	<table>
 		<tr>

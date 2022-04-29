@@ -24,14 +24,9 @@
 				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
 					<li class="nav-item"><a class="nav-link active" aria-current="page" href="#">Today</a></li>
 					<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath }/notice/list">공지사항</a></li>
-					<li class="nav-item"><a class="nav-link" href="#${pageContext.request.contextPath }/board/list">일문일답</a>
-       				 </li>
-        		<li class="nav-item">
-	            		<a class="nav-link" href="#">Diary</a>
-	    	    </li>
-    		    <li class="nav-item">
-           		  <a class="nav-link" href="${pageContext.request.contextPath }/qna/list">Q&A</a>
- 			       </li>
+					<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath }/board/list">일문일답</a></li>
+          			<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath }/diary/list/${memberLogin.memberSeq}">Diary</a></li>
+    		    	<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath }/qna/list">Q&A</a></li>
  			     </ul>
  			     <ul class="nav jsutify-content.end">
 	   		  		<c:if test="${!empty memberLogin }">

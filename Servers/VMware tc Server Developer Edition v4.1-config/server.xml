@@ -20,6 +20,8 @@
             <Context docBase="C://project/workspace/resources/upload/notice/" path="/noticeImg/" reloadable="true" />
             <Context docBase="C://project/workspace/resources/upload/qna/" path="/qnaImg/" reloadable="true" />
             <Context docBase="C://project/workspace/resources/upload/board/" path="/boardImg/" reloadable="true" />
+            <Context docBase="C://project/workspace/resources/upload/diary/" path="/diaryImg/" reloadable="true" />
+
             </Host>
         </Engine>
         <Connector acceptCount="100" connectionTimeout="20000" executor="tomcatThreadPool" maxKeepAliveRequests="15" port="${nio.http.port}" protocol="org.apache.coyote.http11.Http11NioProtocol" redirectPort="${nio.https.port}"/>
